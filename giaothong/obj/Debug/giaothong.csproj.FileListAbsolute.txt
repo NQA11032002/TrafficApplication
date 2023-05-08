@@ -10,12 +10,10 @@ F:\WPF\giaothong\giaothong\bin\Debug\MaterialDesignThemes.Wpf.xml
 F:\WPF\giaothong\giaothong\bin\Debug\Microsoft.Xaml.Behaviors.pdb
 F:\WPF\giaothong\giaothong\bin\Debug\Microsoft.Xaml.Behaviors.xml
 F:\WPF\giaothong\giaothong\obj\Debug\giaothong.csproj.AssemblyReference.cache
-F:\WPF\giaothong\giaothong\obj\Debug\MainWindow.g.cs
 F:\WPF\giaothong\giaothong\obj\Debug\App.g.cs
 F:\WPF\giaothong\giaothong\obj\Debug\giaothong_MarkupCompile.cache
 F:\WPF\giaothong\giaothong\obj\Debug\giaothong_MarkupCompile.lref
 F:\WPF\giaothong\giaothong\obj\Debug\App.baml
-F:\WPF\giaothong\giaothong\obj\Debug\MainWindow.baml
 F:\WPF\giaothong\giaothong\obj\Debug\giaothong.g.resources
 F:\WPF\giaothong\giaothong\obj\Debug\giaothong.Properties.Resources.resources
 F:\WPF\giaothong\giaothong\obj\Debug\giaothong.csproj.GenerateResource.cache
@@ -24,3 +22,13 @@ F:\WPF\giaothong\giaothong\obj\Debug\giaothong.csproj.CopyComplete
 F:\WPF\giaothong\giaothong\obj\Debug\giaothong.exe
 F:\WPF\giaothong\giaothong\obj\Debug\giaothong.pdb
 F:\WPF\giaothong\giaothong\obj\Debug\Resources\MainResource.baml
+F:\WPF\giaothong\giaothong\obj\Debug\MainWindow.g.cs
+F:\WPF\giaothong\giaothong\obj\Debug\MainWindow.baml
+F:\WPF\giaothong\giaothong\obj\Debug\HomeWindow.g.cs
+F:\WPF\giaothong\giaothong\obj\Debug\HomeWindow.baml
+F:\WPF\giaothong\giaothong\bin\Debug\LiveCharts.dll
+F:\WPF\giaothong\giaothong\bin\Debug\LiveCharts.Wpf.dll
+F:\WPF\giaothong\giaothong\bin\Debug\LiveCharts.pdb
+F:\WPF\giaothong\giaothong\bin\Debug\LiveCharts.xml
+F:\WPF\giaothong\giaothong\bin\Debug\LiveCharts.Wpf.pdb
+F:\WPF\giaothong\giaothong\bin\Debug\LiveCharts.Wpf.xml
