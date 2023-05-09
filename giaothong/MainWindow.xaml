@@ -8,6 +8,7 @@
         TextElement.FontWeight="Regular"
         mc:Ignorable="d"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource mainvm}"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontSize="18"

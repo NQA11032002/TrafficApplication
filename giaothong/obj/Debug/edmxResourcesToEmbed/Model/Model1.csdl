@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="giaothongModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="GIAOVIEN">
+    <Key>
+      <PropertyRef Name="MaGV" />
+    </Key>
+    <Property Name="MaGV" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="HoDem" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="TenGV" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="SoCCCD" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <Property Name="NoiCT" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="GioiTinh" Type="Int32" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="TuyenDung" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="TrinhDo_VH" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Nganh_CM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TrinhDo_SP" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="GV_LT" Type="Boolean" />
+    <Property Name="GV_TH" Type="Boolean" />
+    <Property Name="SoGCN" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="MaSoGTVT" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="MaCSDT" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="TrangThai" Type="Boolean" />
+    <Property Name="AnhCD" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NguoiCapNhat" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="NgayCapNhat" Type="DateTime" Precision="0" />
+    <Property Name="NguoiDuyet" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="NgayDuyet" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="GIAOVIEN_GCN" Relationship="Self.fk_giaovien_gcn" FromRole="GIAOVIEN" ToRole="GIAOVIEN_GCN" />
+  </EntityType>
+  <EntityType Name="GIAOVIEN_GCN">
+    <Key>
+      <PropertyRef Name="SoGCN" />
+    </Key>
+    <Property Name="SoGCN" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="QDCap" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="DonViCap" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="NgayCap" Type="DateTime" Precision="0" />
+    <Property Name="HangXe" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="MaDonViTapHuan" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="NgayKiemTra" Type="DateTime" Precision="0" />
+    <Property Name="AnhGCN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NguoiCapNhat" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="NgayCapNhat" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="GIAOVIENs" Relationship="Self.fk_giaovien_gcn" FromRole="GIAOVIEN_GCN" ToRole="GIAOVIEN" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role_ID" Type="Int32" />
+    <Property Name="UserName" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDay" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="USERS_ROLE" Relationship="Self.fk_user_role" FromRole="USERS" ToRole="USERS_ROLE" />
+  </EntityType>
+  <EntityType Name="USERS_ROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="USERS" Relationship="Self.fk_user_role" FromRole="USERS_ROLE" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="XETAPLAI">
+    <Key>
+      <PropertyRef Name="SoDangKy" />
+    </Key>
+    <Property Name="SoDangKy" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="TenChuSoHuu" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="SoGPTL" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="NhanHieu" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="KieuLoai" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="HangXe" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="MauXe" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="SoDongCo" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="SoKhung" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="NamSX" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="LoaiXe" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="XeSatHach" Type="Boolean" />
+    <Property Name="TrangThaiHD" Type="Boolean" />
+    <Property Name="NgayCapNhat" Type="DateTime" Precision="0" />
+    <Property Name="NguoiCapNhat" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="XETAPLAI_GP" Relationship="Self.fk_xetl_gp" FromRole="XETAPLAI" ToRole="XETAPLAI_GP" />
+  </EntityType>
+  <EntityType Name="XETAPLAI_GP">
+    <Key>
+      <PropertyRef Name="SoGPXTL" />
+    </Key>
+    <Property Name="SoGPXTL" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="SoDangKy" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="MaDonViCap" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="MaCSDT" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="XeHopDong" Type="Boolean" />
+    <Property Name="NgayCap" Type="DateTime" Precision="0" />
+    <Property Name="NgayHH" Type="DateTime" Precision="0" />
+    <Property Name="AnhGP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AnhDKiem" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AnhDky" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NgayCapNhat" Type="DateTime" Precision="0" />
+    <Property Name="NguoiCapNhat" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="DuongTapLai" Type="String" MaxLength="200" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="XETAPLAIs" Relationship="Self.fk_xetl_gp" FromRole="XETAPLAI_GP" ToRole="XETAPLAI" />
+  </EntityType>
+  <Association Name="fk_giaovien_gcn">
+    <End Role="GIAOVIEN_GCN" Type="Self.GIAOVIEN_GCN" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GIAOVIEN_GCN">
+        <PropertyRef Name="SoGCN" />
+      </Principal>
+      <Dependent Role="GIAOVIEN">
+        <PropertyRef Name="SoGCN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user_role">
+    <End Role="USERS_ROLE" Type="Self.USERS_ROLE" Multiplicity="0..1" />
+    <End Role="USERS" Type="Self.USER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS_ROLE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USERS">
+        <PropertyRef Name="Role_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_xetl_gp">
+    <End Role="XETAPLAI_GP" Type="Self.XETAPLAI_GP" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="XETAPLAI" Type="Self.XETAPLAI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="XETAPLAI_GP">
+        <PropertyRef Name="SoGPXTL" />
+      </Principal>
+      <Dependent Role="XETAPLAI">
+        <PropertyRef Name="SoGPTL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="giaothongEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="GIAOVIENs" EntityType="Self.GIAOVIEN" />
+    <EntitySet Name="GIAOVIEN_GCN" EntityType="Self.GIAOVIEN_GCN" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="USERS" EntityType="Self.USER" />
+    <EntitySet Name="USERS_ROLE" EntityType="Self.USERS_ROLE" />
+    <EntitySet Name="XETAPLAIs" EntityType="Self.XETAPLAI" />
+    <EntitySet Name="XETAPLAI_GP" EntityType="Self.XETAPLAI_GP" />
+    <AssociationSet Name="fk_giaovien_gcn" Association="Self.fk_giaovien_gcn">
+      <End Role="GIAOVIEN_GCN" EntitySet="GIAOVIEN_GCN" />
+      <End Role="GIAOVIEN" EntitySet="GIAOVIENs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user_role" Association="Self.fk_user_role">
+      <End Role="USERS_ROLE" EntitySet="USERS_ROLE" />
+      <End Role="USERS" EntitySet="USERS" />
+    </AssociationSet>
+    <AssociationSet Name="fk_xetl_gp" Association="Self.fk_xetl_gp">
+      <End Role="XETAPLAI_GP" EntitySet="XETAPLAI_GP" />
+      <End Role="XETAPLAI" EntitySet="XETAPLAIs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

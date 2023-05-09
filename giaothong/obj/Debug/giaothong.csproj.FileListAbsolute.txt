@@ -32,3 +32,11 @@ F:\WPF\giaothong\giaothong\bin\Debug\LiveCharts.pdb
 F:\WPF\giaothong\giaothong\bin\Debug\LiveCharts.xml
 F:\WPF\giaothong\giaothong\bin\Debug\LiveCharts.Wpf.pdb
 F:\WPF\giaothong\giaothong\bin\Debug\LiveCharts.Wpf.xml
+F:\WPF\giaothong\giaothong\bin\Debug\EntityFramework.dll
+F:\WPF\giaothong\giaothong\bin\Debug\EntityFramework.SqlServer.dll
+F:\WPF\giaothong\giaothong\bin\Debug\EntityFramework.xml
+F:\WPF\giaothong\giaothong\bin\Debug\EntityFramework.SqlServer.xml
+F:\WPF\giaothong\giaothong\obj\Debug\giaothong_Content.g.cs
+F:\WPF\giaothong\giaothong\obj\Debug\GeneratedInternalTypeHelper.g.cs
+F:\WPF\giaothong\giaothong\obj\Debug\TeacherWindow.g.cs
+F:\WPF\giaothong\giaothong\obj\Debug\TeacherWindow.baml
