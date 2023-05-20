@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:giaothong"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.FontWeight="Regular"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource teachervm}"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
+        Name="teacherWindow"
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None" 
         AllowsTransparency="True" 
@@ -28,7 +29,7 @@
                 <RowDefinition Height="40"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" Height="30" Width="50">
+            <Button HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" Height="30" Width="50" Command="{Binding closeTeacherWindow}"  CommandParameter="{Binding ElementName=teacherWindow}">
                 <materialDesign:PackIcon Width="20" Height="20" Foreground="#08bf96" Kind="Logout" />
             </Button>
 
@@ -43,10 +44,18 @@
                 <WrapPanel Margin="10 0 0 0" VerticalAlignment="Center">
                     <ComboBox
                         Width="100"
-                      materialDesign:HintAssist.Hint="Trạng thái"
-                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                        <ComboBoxItem Content="Hoạt động"></ComboBoxItem>
-                        <ComboBoxItem Content="Không hoạt động"></ComboBoxItem>
+                        materialDesign:HintAssist.Hint="Trạng thái"
+                        SelectedIndex="{Binding SelectedIndex,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding selectionChanged}"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ComboBoxItem Content="Tất cả"></ComboBoxItem>
+                        <ComboBoxItem Content="Hợp đồng"></ComboBoxItem>
+                        <ComboBoxItem Content="Biên chế"></ComboBoxItem>
+                        <ComboBoxItem Content="Thời vụ"></ComboBoxItem>
                         <ComboBoxItem Content="Dạy lý thuyết"></ComboBoxItem>
                         <ComboBoxItem Content="Dạy thực hành"></ComboBoxItem>
                     </ComboBox>
@@ -54,8 +63,15 @@
                     <TextBox
                           Margin="10 0 0 0"
                           Width="200"
+                          Text="{Binding SearchTeacher, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                           materialDesign:HintAssist.Hint="Tìm kiếm theo Mã hoặc CCCD.."
-                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                          Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding textChanged}"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
                 </WrapPanel>
 
                 <WrapPanel Margin="0 0 10 0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -72,12 +88,15 @@
                     
                     <Button
                         Style="{StaticResource MaterialDesignRaisedButton}"
-                        Width="100"
+                        Width="130"
                         ToolTip="Resource name: MaterialDesignRaisedButton"
                         Content="Thêm giáo viên"
                         BorderThickness="0"
                         Background="#08bf96"
-                        Foreground="#ffffff">
+                        Foreground="#ffffff"
+                        Command="{Binding viewInsertTeacher}"
+                        CommandParameter="{Binding ElementName=teacherWindow}">
+                        
                     </Button>
                 </WrapPanel>
             </Grid>

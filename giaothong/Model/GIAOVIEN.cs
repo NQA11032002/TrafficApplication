@@ -37,7 +37,5 @@ namespace giaothong.Model
         public Nullable<System.DateTime> NgayCapNhat { get; set; }
         public string NguoiDuyet { get; set; }
         public Nullable<System.DateTime> NgayDuyet { get; set; }
-    
-        public virtual GIAOVIEN_GCN GIAOVIEN_GCN { get; set; }
     }
 }

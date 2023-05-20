@@ -23,7 +23,7 @@ alter table users add constraint fk_user_role foreign key(Role_ID) references US
 
 Create table GIAOVIEN
 (
-	MaGV char(12) primary key,
+	MaGV char(20) primary key,
 	HoDem nvarchar(25),
 	TenGV nvarchar(15),
 	NgaySinh Date,
@@ -47,8 +47,11 @@ Create table GIAOVIEN
 	NguoiDuyet nvarchar(20),
 	NgayDuyet Date
 )
+
+
 ALTER TABLE GIAOVIEN
-ALTER COLUMN Nganh_CM nvarchar(20);
+ALTER COLUMN MaGV char(16);
+
 create table GIAOVIEN_GCN
 (
 	SoGCN char(15) primary key,

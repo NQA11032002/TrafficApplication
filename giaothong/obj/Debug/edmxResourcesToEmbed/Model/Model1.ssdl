@@ -4,9 +4,9 @@
     <Key>
       <PropertyRef Name="MaGV" />
     </Key>
-    <Property Name="MaGV" Type="char" MaxLength="12" Nullable="false" />
+    <Property Name="MaGV" Type="char" MaxLength="20" Nullable="false" />
     <Property Name="HoDem" Type="nvarchar" MaxLength="25" />
-    <Property Name="TenGV" Type="nvarchar" MaxLength="25" />
+    <Property Name="TenGV" Type="nvarchar" MaxLength="15" />
     <Property Name="NgaySinh" Type="date" />
     <Property Name="SoCCCD" Type="char" MaxLength="12" />
     <Property Name="NoiCT" Type="nvarchar" MaxLength="30" />
@@ -25,7 +25,7 @@
     <Property Name="AnhCD" Type="text" />
     <Property Name="NguoiCapNhat" Type="nvarchar" MaxLength="20" />
     <Property Name="NgayCapNhat" Type="date" />
-    <Property Name="NguoiDuyet" Type="nvarchar" MaxLength="25" />
+    <Property Name="NguoiDuyet" Type="nvarchar" MaxLength="20" />
     <Property Name="NgayDuyet" Type="date" />
   </EntityType>
   <EntityType Name="GIAOVIEN_GCN">
@@ -112,20 +112,6 @@
     <Property Name="NguoiCapNhat" Type="nvarchar" MaxLength="15" />
     <Property Name="DuongTapLai" Type="char" MaxLength="200" />
   </EntityType>
-  <Association Name="fk_giaovien_gcn">
-    <End Role="GIAOVIEN_GCN" Type="Self.GIAOVIEN_GCN" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="GIAOVIEN" Type="Self.GIAOVIEN" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="GIAOVIEN_GCN">
-        <PropertyRef Name="SoGCN" />
-      </Principal>
-      <Dependent Role="GIAOVIEN">
-        <PropertyRef Name="SoGCN" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="fk_user_role">
     <End Role="USERS_ROLE" Type="Self.USERS_ROLE" Multiplicity="0..1" />
     <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
@@ -160,10 +146,6 @@
     <EntitySet Name="USERS_ROLE" EntityType="Self.USERS_ROLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="XETAPLAI" EntityType="Self.XETAPLAI" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="XETAPLAI_GP" EntityType="Self.XETAPLAI_GP" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="fk_giaovien_gcn" Association="Self.fk_giaovien_gcn">
-      <End Role="GIAOVIEN_GCN" EntitySet="GIAOVIEN_GCN" />
-      <End Role="GIAOVIEN" EntitySet="GIAOVIEN" />
-    </AssociationSet>
     <AssociationSet Name="fk_user_role" Association="Self.fk_user_role">
       <End Role="USERS_ROLE" EntitySet="USERS_ROLE" />
       <End Role="USERS" EntitySet="USERS" />
