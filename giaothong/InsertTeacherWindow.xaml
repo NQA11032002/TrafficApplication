@@ -33,7 +33,7 @@
 
             <TextBlock Grid.Row="1" Foreground="#08bf96" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center" Text="THÊM THÔNG TIN GIÁO VIÊN" FontWeight="SemiBold"></TextBlock>
 
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="2" Margin="0 10 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -41,10 +41,10 @@
 
                 <Border BorderThickness="0 0 1 0" BorderBrush="Gray">
                     <StackPanel>
-                        <Border CornerRadius="100" Height="150" Width="150" BorderBrush="Gray" BorderThickness="1" Margin="0 15 0 15">
-                            <Image Source="{Binding SelectedImage, UpdateSourceTrigger=PropertyChanged}" Height="150" Width="150" ></Image>
+                        <Border Height="160" Width="160" CornerRadius="5" BorderBrush="Gray" BorderThickness="1" Margin="5">
+                            <Image Source="{Binding SelectedImage}" Height="150" Width="150" ></Image>
                         </Border>
-                        
+
                         <Button
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Command="{Binding selectedImage}"
@@ -75,7 +75,7 @@
                                 <TextBlock Text="Mã giáo viên" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                 <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                     <TextBox
-                                      Text="{Binding maGV, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                      Text="{Binding MaGV, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                       IsEnabled="False"
                                       Height="30"
                                       FontSize="14"
@@ -90,12 +90,13 @@
                                     <TextBlock Text="Họ đệm" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                     <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                         <TextBox
+                                        Text="{Binding HoDem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         Width="219"
-                                      Height="30"
-                                      FontSize="14"
-                                      Margin="2 0"
-                                      Padding="5 0"
-                                      materialDesign:HintAssist.Hint="Họ đệm"/>
+                                        Height="30"
+                                        FontSize="14"
+                                        Margin="2 0"
+                                        Padding="5 0"
+                                        materialDesign:HintAssist.Hint="Họ đệm"/>
                                     </Border>
                                 </StackPanel>
 
@@ -103,12 +104,13 @@
                                     <TextBlock Text="Tên" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                     <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                         <TextBox
-                                      Width="219"
-                                      Height="30"
-                                      FontSize="14"
-                                      Margin="2 0"
-                                      Padding="5 0"
-                                      materialDesign:HintAssist.Hint="Tên"/>
+                                        Text="{Binding TenGV, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Width="219"
+                                        Height="30"
+                                        FontSize="14"
+                                        Margin="2 0"
+                                        Padding="5 0"
+                                        materialDesign:HintAssist.Hint="Tên"/>
                                     </Border>
                                 </StackPanel>
                             </WrapPanel>
@@ -119,6 +121,7 @@
                                     <DatePicker
                                       Height="30"
                                       FontSize="14"
+                                      Text="{Binding NgaySinh, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                       Margin="2 0"
                                       Padding="5 0"
                                       materialDesign:HintAssist.Hint="Ngày sinh" />
@@ -133,6 +136,7 @@
                                       FontSize="14"
                                       Margin="2 0"
                                       Padding="5 0"
+                                      Text="{Binding SoCCCD, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                       materialDesign:HintAssist.Hint="Số CCCD/CMND"/>
                                 </Border>
                             </StackPanel>
@@ -141,11 +145,11 @@
                                 <TextBlock Text="Nơi CT" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                 <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                     <ComboBox
-                                    Height="30"
-                                    Padding="5 0"
-                                    materialDesign:HintAssist.Hint="Nơi CT"
-                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                                        <ComboBoxItem Content="Bình Định"></ComboBoxItem>
+                                        SelectedItem="{Binding NoiCT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Height="30"
+                                        Padding="5 6"
+                                        materialDesign:HintAssist.Hint="Nơi CT">
+                                        <ComboBoxItem IsSelected="True" Content="Bình Định"></ComboBoxItem>
                                         <ComboBoxItem Content="Hồ Chí Minh"></ComboBoxItem>
                                         <ComboBoxItem Content="Hà Nội"></ComboBoxItem>
                                         <ComboBoxItem Content="Lâm Đồng"></ComboBoxItem>
@@ -159,11 +163,11 @@
                                 <TextBlock Text="Hình thức tuyển dụng" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                 <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                     <ComboBox
+                                    SelectedItem="{Binding TuyenDung, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     Height="30"
-                                    Padding="5 0"
-                                    materialDesign:HintAssist.Hint="Nơi CT"
-                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                                        <ComboBoxItem Content="Hợp đồng"></ComboBoxItem>
+                                    Padding="5 6"
+                                    materialDesign:HintAssist.Hint="Hình thức tuyển dụng">
+                                        <ComboBoxItem IsSelected="True" Content="Hợp đồng"></ComboBoxItem>
                                         <ComboBoxItem Content="Biên chế"></ComboBoxItem>
                                         <ComboBoxItem Content="Thời vụ"></ComboBoxItem>
                                     </ComboBox>
@@ -174,6 +178,7 @@
                                 <TextBlock Text="Số điện thoại" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                 <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                     <TextBox
+                                      Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                       Height="30"
                                       FontSize="14"
                                       Margin="2 0"
@@ -182,19 +187,20 @@
                                 </Border>
                             </StackPanel>
                         </StackPanel>
-    
+
                         <StackPanel Grid.Column="1">
                             <WrapPanel Margin="10 0">
                                 <StackPanel >
                                     <TextBlock Text="Trình độ văn hóa" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                     <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                         <TextBox
+                                        Text="{Binding TrinhDo_VH, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         Width="219"
-                                      Height="30"
-                                      FontSize="14"
-                                      Margin="2 0"
-                                      Padding="5 0"
-                                      materialDesign:HintAssist.Hint="Trình độ văn hóa"/>
+                                        Height="30"
+                                        FontSize="14"
+                                        Margin="2 0"
+                                        Padding="5 0"
+                                        materialDesign:HintAssist.Hint="Trình độ văn hóa"/>
                                     </Border>
                                 </StackPanel>
 
@@ -202,50 +208,37 @@
                                     <TextBlock Text="Trình độ sư phạm" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                     <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                         <TextBox
-                                      Width="219"
-                                      Height="30"
-                                      FontSize="14"
-                                      Margin="2 0"
-                                      Padding="5 0"
-                                      materialDesign:HintAssist.Hint="Trình độ sư phạm"/>
+                                        Text="{Binding TrinhDo_SP, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Width="219"
+                                        Height="30"
+                                        FontSize="14"
+                                        Margin="2 0"
+                                        Padding="5 0"
+                                        materialDesign:HintAssist.Hint="Trình độ sư phạm"/>
                                     </Border>
                                 </StackPanel>
                             </WrapPanel>
 
 
-                            <WrapPanel Margin="10 0">
-                                <StackPanel>
-                                    <TextBlock Text="Trình độ chuyên môn" FontSize="16" FontWeight="SemiBold"></TextBlock>
-                                    <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
-                                        <TextBox
-                                      Width="219"
-                                      Height="30"
-                                      FontSize="14"
-                                      Margin="2 0"
-                                      Padding="5 0"
-                                      materialDesign:HintAssist.Hint="Trình độ chuyên môn"/>
-                                    </Border>
-                                </StackPanel>
-
-                                <StackPanel Margin="10 0">
-                                    <TextBlock Text="Ngành chuyên môn đào tạo" FontSize="16" FontWeight="SemiBold"></TextBlock>
-                                    <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
-                                        <TextBox
-                                      Width="219"
+                            <StackPanel Margin="10 0">
+                                <TextBlock Text="Ngành chuyên môn đào tạo" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                                <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
+                                    <TextBox
+                                      Text="{Binding Nganh_CM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                       Height="30"
                                       FontSize="14"
                                       Margin="2 0"
                                       Padding="5 0"
                                       materialDesign:HintAssist.Hint="Ngành chuyên môn đào tạo"/>
-                                    </Border>
-                                </StackPanel>
-                            </WrapPanel>
+                                </Border>
+                            </StackPanel>
 
                             <StackPanel Margin="10 0">
                                 <TextBlock Text="Số giấy chứng nhận giáo viên" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                 <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                     <TextBox
                                       Height="30"
+                                      Text="{Binding SoGCN, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                       FontSize="14"
                                       Margin="2 0"
                                       Padding="5 0"
@@ -257,6 +250,7 @@
                                 <TextBlock Text="Mã sở giao thông vận tải" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                 <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                     <TextBox
+                                      Text="{Binding MaSoGTVT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                       Height="30"
                                       FontSize="14"
                                       Margin="2 0"
@@ -269,6 +263,7 @@
                                 <TextBlock Text="Mã cơ sở đào tạo" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                 <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                     <TextBox
+                                      Text="{Binding MaCSDT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                       Height="30"
                                       FontSize="14"
                                       Margin="2 0"
@@ -281,11 +276,11 @@
                                 <TextBlock Text="Trạng thái" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                 <Border CornerRadius="5" Margin="0 10" BorderThickness="1 1 1 1" BorderBrush="Gray">
                                     <ComboBox
+                                    SelectedIndex="{Binding SelectedIndexStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                     Height="30"
-                                    Padding="5 0"
-                                    materialDesign:HintAssist.Hint="Trạng thái"
-                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                                        <ComboBoxItem Content="Họat động"></ComboBoxItem>
+                                    Padding="5 6"
+                                    materialDesign:HintAssist.Hint="Trạng thái">
+                                        <ComboBoxItem IsSelected="True" Content="Họat động"></ComboBoxItem>
                                         <ComboBoxItem Content="Không hoạt động"></ComboBoxItem>
                                     </ComboBox>
                                 </Border>
@@ -295,16 +290,16 @@
                                 <StackPanel Width="219">
                                     <TextBlock Text="Giáo viên dạy" Margin="0 0 0 15" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                     <WrapPanel Height="30">
-                                        <CheckBox Style="{StaticResource MaterialDesignCheckBox}" Content="Lý thuyết" Margin="0 0 10 0"></CheckBox>
-                                        <CheckBox Style="{StaticResource MaterialDesignCheckBox}" Content="Thực hành"></CheckBox>
+                                        <CheckBox IsChecked="{Binding IsCheckedGV_LT, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Style="{StaticResource MaterialDesignCheckBox}" Content="Lý thuyết" Margin="0 0 10 0"></CheckBox>
+                                        <CheckBox IsChecked="{Binding IsCheckedGV_TH, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Style="{StaticResource MaterialDesignCheckBox}" Content="Thực hành"></CheckBox>
                                     </WrapPanel>
                                 </StackPanel>
 
                                 <StackPanel Width="219">
                                     <TextBlock Text="Giới tính" Margin="0 0 0 15" FontSize="16" FontWeight="SemiBold"></TextBlock>
                                     <WrapPanel>
-                                        <RadioButton Style="{StaticResource MaterialDesignRadioButton}" Content="Nam" Margin="0 0 10 0"></RadioButton>
-                                        <RadioButton Style="{StaticResource MaterialDesignRadioButton}" Content="Nữ"></RadioButton>
+                                        <RadioButton IsChecked="True" Style="{StaticResource MaterialDesignRadioButton}" Content="Nam" Margin="0 0 10 0"></RadioButton>
+                                        <RadioButton IsChecked="{Binding IsCheckedGender, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Content="Nữ"></RadioButton>
                                     </WrapPanel>
                                 </StackPanel>
                             </WrapPanel>
@@ -317,7 +312,7 @@
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     Width="100"
                                     ToolTip="Resource name: MaterialDesignRaisedButton"
-                                    Content="Thêm giáo viên"
+                                    Content="Hủy"
                                     BorderThickness="0"
                                     Background="Gray"
                                     Margin="0 0 10 0"
@@ -330,7 +325,8 @@
                                     Content="Thêm giáo viên"
                                     BorderThickness="0"
                                     Background="#08bf96"
-                                    Foreground="#ffffff">
+                                    Foreground="#ffffff"
+                                    Command="{Binding insertTeacher}">
                             </Button>
                         </StackPanel>
 

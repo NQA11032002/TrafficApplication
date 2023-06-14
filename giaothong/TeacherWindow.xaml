@@ -111,7 +111,7 @@
                                 </GridViewColumn.Header>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Margin="25 0 0 0" HorizontalAlignment="Center" Source="{Binding AnhCD}" VerticalAlignment="Center" Width="20" Height="20" />
+                                        <Image Margin="25 0 0 0" HorizontalAlignment="Center" Source="{Binding AnhCD, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="20" Height="20" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -143,13 +143,18 @@
             </Grid>
 
             <Grid Grid.Row="4" Margin="10 0 10 0">
-                <TextBlock HorizontalAlignment="Left" FontSize="16" Text="Trang 4/10" VerticalAlignment="Center" Foreground="Gray"></TextBlock>
+                <WrapPanel>
+                    <TextBlock HorizontalAlignment="Left" FontSize="16" Text="Trang" VerticalAlignment="Center" Foreground="Gray"></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" FontSize="16" Text="{Binding CurrentPage, UpdateSourceTrigger=PropertyChanged}" Margin="5 0 0 0" VerticalAlignment="Center" Foreground="Gray"></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" FontSize="16" Text="/" VerticalAlignment="Center" Foreground="Gray"></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" FontSize="16" Text="{Binding TotalPages, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Foreground="Gray"></TextBlock>
+                </WrapPanel>
 
                 <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" Height="30" Width="40">
+                    <Button Command="{Binding previousPage}" HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" Height="30" Width="40">
                         <materialDesign:PackIcon HorizontalAlignment="Center" Width="30" Height="25"  Foreground="#08bf96" Kind="ChevronLeft" />
                     </Button>
-                    <Button HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" Height="30" Width="40">
+                    <Button Command="{Binding nextPage}" HorizontalAlignment="Right" BorderThickness="0" Background="Transparent" Height="30" Width="40">
                         <materialDesign:PackIcon HorizontalAlignment="Center" Width="30" Height="25"   Foreground="#08bf96" Kind="ChevronRight" />
                     </Button>
                 </WrapPanel>
