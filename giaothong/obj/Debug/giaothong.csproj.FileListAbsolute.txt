@@ -44,3 +44,5 @@ F:\WPF\giaothong\giaothong\bin\Debug\Microsoft.Expression.Interactions.dll
 F:\WPF\giaothong\giaothong\bin\Debug\System.Windows.Interactivity.dll
 F:\WPF\giaothong\giaothong\obj\Debug\InsertTeacherWindow.g.cs
 F:\WPF\giaothong\giaothong\obj\Debug\InsertTeacherWindow.baml
+F:\WPF\giaothong\giaothong\obj\Debug\EditTeacherWindow.g.cs
+F:\WPF\giaothong\giaothong\obj\Debug\EditTeacherWindow.baml

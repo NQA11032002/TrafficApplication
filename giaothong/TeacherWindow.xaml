@@ -85,7 +85,7 @@
                         BorderThickness="0"
                         Foreground="#ffffff">
                     </Button>
-                    
+
                     <Button
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Width="130"
@@ -96,13 +96,17 @@
                         Foreground="#ffffff"
                         Command="{Binding viewInsertTeacher}"
                         CommandParameter="{Binding ElementName=teacherWindow}">
-                        
+
                     </Button>
                 </WrapPanel>
             </Grid>
 
             <Grid Grid.Row="3" Margin="10 0 10 0">
-                <ListView ItemsSource="{Binding ListTeacher}"  ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="559*"/>
+                    <ColumnDefinition Width="21*"/>
+                </Grid.ColumnDefinitions>
+                <ListView ItemsSource="{Binding ListTeacher}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"  ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn>
@@ -125,6 +129,7 @@
                             <GridViewColumn DisplayMemberBinding="{Binding Phone}" Header="Phone"/>
                             <GridViewColumn DisplayMemberBinding="{Binding TuyenDung}" Header="TuyenDung"/>
                             <GridViewColumn DisplayMemberBinding="{Binding TrinhDo_VH}" Header="TrinhDo_VH"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding TrinhDo_CM}" Header="TrinhDo_CM"/>
                             <GridViewColumn DisplayMemberBinding="{Binding Nganh_CM}" Header="Nganh_CM"/>
                             <GridViewColumn DisplayMemberBinding="{Binding TrinhDo_SP}" Header="TrinhDo_SP"/>
                             <GridViewColumn DisplayMemberBinding="{Binding GV_LT}" Header="GV_LT"/>
@@ -139,6 +144,11 @@
                             <GridViewColumn DisplayMemberBinding="{Binding NgayDuyet}" Header="NgayDuyet"/>
                         </GridView>
                     </ListView.View>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                            <i:InvokeCommandAction CommandParameter="{Binding ElementName=teacherWindow}" Command="{Binding previewMouseLeftButtonUp}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ListView>
             </Grid>
 

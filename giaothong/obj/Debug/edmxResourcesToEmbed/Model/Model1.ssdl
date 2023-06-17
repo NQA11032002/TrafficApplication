@@ -27,6 +27,7 @@
     <Property Name="NgayCapNhat" Type="date" />
     <Property Name="NguoiDuyet" Type="nvarchar" MaxLength="20" />
     <Property Name="NgayDuyet" Type="date" />
+    <Property Name="TrinhDo_CM" Type="char" MaxLength="10" />
   </EntityType>
   <EntityType Name="GIAOVIEN_GCN">
     <Key>
@@ -42,6 +43,15 @@
     <Property Name="AnhGCN" Type="text" />
     <Property Name="NguoiCapNhat" Type="nvarchar" MaxLength="15" />
     <Property Name="NgayCapNhat" Type="date" />
+  </EntityType>
+  <EntityType Name="province_city">
+    <Key>
+      <PropertyRef Name="matp" />
+    </Key>
+    <Property Name="matp" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" />
+    <Property Name="type" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="slug" Type="varchar" MaxLength="30" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -141,6 +151,7 @@
   <EntityContainer Name="giaothongModelStoreContainer">
     <EntitySet Name="GIAOVIEN" EntityType="Self.GIAOVIEN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GIAOVIEN_GCN" EntityType="Self.GIAOVIEN_GCN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="province_city" EntityType="Self.province_city" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="USERS_ROLE" EntityType="Self.USERS_ROLE" Schema="dbo" store:Type="Tables" />

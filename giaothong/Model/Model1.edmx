@@ -32,6 +32,7 @@
           <Property Name="NgayCapNhat" Type="date" />
           <Property Name="NguoiDuyet" Type="nvarchar" MaxLength="20" />
           <Property Name="NgayDuyet" Type="date" />
+          <Property Name="TrinhDo_CM" Type="char" MaxLength="10" />
         </EntityType>
         <EntityType Name="GIAOVIEN_GCN">
           <Key>
@@ -47,6 +48,15 @@
           <Property Name="AnhGCN" Type="text" />
           <Property Name="NguoiCapNhat" Type="nvarchar" MaxLength="15" />
           <Property Name="NgayCapNhat" Type="date" />
+        </EntityType>
+        <EntityType Name="province_city">
+          <Key>
+            <PropertyRef Name="matp" />
+          </Key>
+          <Property Name="matp" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="type" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="slug" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -146,6 +156,7 @@
         <EntityContainer Name="giaothongModelStoreContainer">
           <EntitySet Name="GIAOVIEN" EntityType="Self.GIAOVIEN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GIAOVIEN_GCN" EntityType="Self.GIAOVIEN_GCN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="province_city" EntityType="Self.province_city" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USERS_ROLE" EntityType="Self.USERS_ROLE" Schema="dbo" store:Type="Tables" />
@@ -167,6 +178,7 @@
         <EntityContainer Name="giaothongEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="GIAOVIENs" EntityType="giaothongModel.GIAOVIEN" />
           <EntitySet Name="GIAOVIEN_GCN" EntityType="giaothongModel.GIAOVIEN_GCN" />
+          <EntitySet Name="province_city" EntityType="giaothongModel.province_city" />
           <EntitySet Name="sysdiagrams" EntityType="giaothongModel.sysdiagram" />
           <EntitySet Name="USERS" EntityType="giaothongModel.USER" />
           <EntitySet Name="USERS_ROLE" EntityType="giaothongModel.USERS_ROLE" />
@@ -208,6 +220,7 @@
           <Property Name="NgayCapNhat" Type="DateTime" Precision="0" />
           <Property Name="NguoiDuyet" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="NgayDuyet" Type="DateTime" Precision="0" />
+          <Property Name="TrinhDo_CM" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="GIAOVIEN_GCN">
           <Key>
@@ -223,6 +236,15 @@
           <Property Name="AnhGCN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="NguoiCapNhat" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="NgayCapNhat" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="province_city">
+          <Key>
+            <PropertyRef Name="matp" />
+          </Key>
+          <Property Name="matp" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="slug" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -323,7 +345,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -332,6 +354,7 @@
           <EntitySetMapping Name="GIAOVIENs">
             <EntityTypeMapping TypeName="giaothongModel.GIAOVIEN">
               <MappingFragment StoreEntitySet="GIAOVIEN">
+                <ScalarProperty Name="TrinhDo_CM" ColumnName="TrinhDo_CM" />
                 <ScalarProperty Name="NgayDuyet" ColumnName="NgayDuyet" />
                 <ScalarProperty Name="NguoiDuyet" ColumnName="NguoiDuyet" />
                 <ScalarProperty Name="NgayCapNhat" ColumnName="NgayCapNhat" />
@@ -371,6 +394,16 @@
                 <ScalarProperty Name="DonViCap" ColumnName="DonViCap" />
                 <ScalarProperty Name="QDCap" ColumnName="QDCap" />
                 <ScalarProperty Name="SoGCN" ColumnName="SoGCN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="province_city">
+            <EntityTypeMapping TypeName="giaothongModel.province_city">
+              <MappingFragment StoreEntitySet="province_city">
+                <ScalarProperty Name="slug" ColumnName="slug" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="matp" ColumnName="matp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

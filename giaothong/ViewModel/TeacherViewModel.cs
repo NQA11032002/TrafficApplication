@@ -21,6 +21,9 @@ namespace giaothong.ViewModel
         private ObservableCollection<GIAOVIEN> _listTeacher;
         public ObservableCollection<GIAOVIEN> ListTeacher { get => _listTeacher; set => _listTeacher = value; }
 
+        private List<province_city> _listCity;
+        public List<province_city> ListCity { get => _listCity; set => _listCity = value; }
+
         private string _maGV;
         public string MaGV { get => _maGV; set { _maGV = value; OnPropertyChanged(); } }
 
@@ -36,8 +39,8 @@ namespace giaothong.ViewModel
         private string _soCCCD;
         public string SoCCCD { get => _soCCCD; set { _soCCCD = value; OnPropertyChanged(); } }
 
-        private ComboBoxItem _noiCT;
-        public ComboBoxItem NoiCT { get => _noiCT; set { _noiCT = value; OnPropertyChanged(); } }
+        private string _noiCT;
+        public string NoiCT { get => _noiCT; set { _noiCT = value; OnPropertyChanged(); } }
 
         private int _gioiTinh;
         public int GioiTinh { get => _gioiTinh; set { _gioiTinh = value; OnPropertyChanged(); } }
@@ -45,6 +48,8 @@ namespace giaothong.ViewModel
         private string _phone;
         public string Phone { get => _phone; set { _phone = value; OnPropertyChanged(); } }
 
+        private string _trinhDo_CM;
+        public string TrinhDo_CM { get => _trinhDo_CM; set => _trinhDo_CM = value; }
 
         public int pageSize = 10; // Số phần tử trên mỗi trang
         private int _currentPage; // Trang hiện tại
@@ -79,8 +84,8 @@ namespace giaothong.ViewModel
         }
 
 
-        private ComboBoxItem _tuyenDung;
-        public ComboBoxItem TuyenDung { get => _tuyenDung; set { _tuyenDung = value; OnPropertyChanged(); } }
+        private string _tuyenDung;
+        public string TuyenDung { get => _tuyenDung; set { _tuyenDung = value; OnPropertyChanged(); } }
 
         private string _trinhDo_VH;
         public string TrinhDo_VH { get => _trinhDo_VH; set { _trinhDo_VH = value; OnPropertyChanged(); } }
@@ -125,7 +130,129 @@ namespace giaothong.ViewModel
         public string SelectedImage { get => _selectedImage; set { _selectedImage = value; OnPropertyChanged(); } }
 
         private string _anhCD;
-        public string AnhCD { get => _anhCD; set => _anhCD = value; }
+        public string AnhCD { get => _anhCD; set { _anhCD = value; OnPropertyChanged(); } }
+
+
+        private int _selectedIndexNoiCT;
+        public int SelectedIndexNoiCT
+        {
+            get => _selectedIndexNoiCT; set
+            {
+                _selectedIndexNoiCT = value; OnPropertyChanged();
+
+                int index = 0;
+
+                for (index = 0; index < ListCity.Count(); index++)
+                {
+                    if (index == SelectedIndexNoiCT)
+                    {
+                        NoiCT = ListCity[index].name;
+                        break;
+                    }
+
+                    index++;
+                }
+            }
+        }
+
+        private int _selectedIndexTD;
+        public int SelectedIndexTD
+        {
+            get => _selectedIndexTD; set
+            {
+                _selectedIndexTD = value;
+                OnPropertyChanged();
+
+                if (SelectedIndexTD == 0)
+                {
+                    TuyenDung = "Hợp đồng";
+                }
+                else if (SelectedIndexTD == 1)
+                {
+                    TuyenDung = "Biên chế";
+                }
+                else
+                {
+                    TuyenDung = "Thời vụ";
+                }
+            }
+        }
+
+
+        private GIAOVIEN _selectedItem;
+        public GIAOVIEN SelectedItem
+        {
+            get => _selectedItem; set
+            {
+                _selectedItem = value;
+                OnPropertyChanged();
+                reset();
+
+                if (SelectedItem != null)
+                {
+                    MaGV = SelectedItem.MaGV;
+                    HoDem = SelectedItem.HoDem;
+                    TenGV = SelectedItem.TenGV;
+                    NgaySinh = SelectedItem.NgaySinh.Value;
+                    SoCCCD = SelectedItem.SoCCCD;
+                    NoiCT = SelectedItem.NoiCT;
+                    GioiTinh = SelectedItem.GioiTinh.Value;
+                    Phone = SelectedItem.Phone;
+                    TuyenDung = SelectedItem.TuyenDung;
+
+                    int index = 0;
+
+                    foreach (var item in ListCity)
+                    {
+                        if (item.name.CompareTo(NoiCT) == 0)
+                        {
+                            SelectedIndexNoiCT = index;
+                            NoiCT = item.name;
+                            break;
+                        }
+
+                        index++;
+                    }
+
+                    if (TuyenDung.CompareTo("Hợp đồng") == 0)
+                    {
+                        SelectedIndexTD = 0;
+                    }
+                    else if (TuyenDung.CompareTo("Biên chế") == 0)
+                    {
+                        SelectedIndexTD = 1;
+                    }
+                    else
+                    {
+                        SelectedIndexTD = 2;
+                    }
+
+                    TrinhDo_VH = SelectedItem.TrinhDo_VH;
+                    TrinhDo_SP = SelectedItem.TrinhDo_SP;
+
+
+                    if (!string.IsNullOrEmpty(SelectedItem.GV_LT.ToString()))
+                    {
+                        GV_LT = SelectedItem.GV_LT.Value;
+                        IsCheckedGV_LT = GV_LT;
+                    }
+
+                    if (!string.IsNullOrEmpty(SelectedItem.GV_TH.ToString()))
+                    {
+                        GV_TH = SelectedItem.GV_TH.Value;
+                        IsCheckedGV_TH = GV_TH;
+                    }
+                    TrinhDo_CM = SelectedItem.TrinhDo_CM;
+                    Nganh_CM = SelectedItem.Nganh_CM;
+                    SoGCN = SelectedItem.SoGCN;
+                    MaSoGTVT = SelectedItem.MaSoGTVT;
+                    MaCSDT = SelectedItem.MaCSDT;
+                    TrangThai = SelectedItem.TrangThai.Value;
+                    AnhCD = SelectedItem.AnhCD;
+                    SelectedImage = AnhCD;
+                }
+            }
+        }
 
         public ICommand selectionChanged { get; set; }
         public ICommand textChanged { get; set; }
@@ -134,17 +261,31 @@ namespace giaothong.ViewModel
         public ICommand closeInsertTeacherWindow { get; set; }
         public ICommand selectedImage { get; set; }
         public ICommand insertTeacher { get; set; }
+        public ICommand editTeacher { get; set; }
         public ICommand nextPage { get; set; }
         public ICommand previousPage { get; set; }
+        public ICommand previewMouseLeftButtonUp { get; set; }
 
         public TeacherViewModel()
         {
             ListTeacher = new ObservableCollection<GIAOVIEN>();
+            ListCity = new List<province_city>();
             NgaySinh = DateTime.Now;
             GioiTinh = 1;
             CurrentPage = 1;
 
             teachers();
+            cities();
+
+            //open window edit teacher
+            previewMouseLeftButtonUp = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Hide();
+                EditTeacherWindow teacher = new EditTeacherWindow();
+                teacher.ShowDialog();
+                p.ShowDialog();
+
+            });
 
             //close view teacher window
             closeTeacherWindow = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -176,6 +317,7 @@ namespace giaothong.ViewModel
             viewInsertTeacher = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 getMaxMaGV();
+                reset();
 
                 p.Hide();
                 InsertTeacher inserTeacher = new InsertTeacher();
@@ -216,33 +358,18 @@ namespace giaothong.ViewModel
             });
 
             //insert teacher
-            insertTeacher = new RelayCommand<string>((p) => { return true; }, (p) =>
+            insertTeacher = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                bool check = true;
                 try
                 {
+                    var check = validation();
+
                     var checkCSDT = checkExists(MaCSDT);
 
                     if (!checkCSDT)
                     {
                         check = false;
                         MessageBox.Show("Giáo viên hiện tại đang dạy ở cơ sở khác!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    var checkBirthDay = checkTypeDate(DateTime.Parse(NgaySinh.ToString()));
-
-                    if (!checkBirthDay)
-                    {
-                        check = false;
-                        MessageBox.Show("Giáo viên phải đủ từ 15 tuổi trở lên!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    var checkCCCD = checkExists(SoCCCD);
-
-                    if (!checkCCCD)
-                    {
-                        check = false;
-                        MessageBox.Show("Số CCCD/CMND đã tồn tại!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                     var checkSoGCN = checkExistsSoGCN(SoGCN);
@@ -253,94 +380,111 @@ namespace giaothong.ViewModel
                         MessageBox.Show("Số giấy chứng nhận không tồn tại hoặc đang thuộc sở hữu của giáo viên khác!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
-                    if (!checkLength(HoDem, 25))
+                    var checkCCCD = checkExists(SoCCCD);
+
+                    if (!checkCCCD)
                     {
                         check = false;
-                        MessageBox.Show("Họ đệm không hợp lệ hoặc phải dưới 25 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Số CCCD/CMND đã tồn tại!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
-                    if (!checkLength(TenGV, 25))
-                    {
-                        check = false;
-                        MessageBox.Show("Tên đệm không hợp lệ hoặc phải dưới 15 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
 
-                    if (!checkLength(Phone, 14))
-                    {
-                        check = false;
-                        MessageBox.Show("Số điện thoại không hợp lệ!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    if (!checkLength(TrinhDo_VH, 10))
-                    {
-                        check = false;
-                        MessageBox.Show("Trình độ văn hóa không hợp lệ hoặc phải dưới 10 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    if (!checkLength(TrinhDo_SP, 10))
-                    {
-                        check = false;
-                        MessageBox.Show("Trình độ sư phạm không hợp lệ hoặc phải dưới 10 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    if (!checkLength(Nganh_CM, 20))
-                    {
-                        check = false;
-                        MessageBox.Show("Ngành chuyên môn không hợp lệ hoặc phải dưới 20 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    if (!checkLength(MaSoGTVT, 5))
-                    {
-                        check = false;
-                        MessageBox.Show("Mã sở giao thông vận tải không hợp lệ hoặc phải dưới 5 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    if (!checkLength(MaCSDT, 5))
-                    {
-                        check = false;
-                        MessageBox.Show("Mã cơ sở đào tạo không hợp lệ hoặc phải dưới 5 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    if (IsCheckedGV_LT == false && IsCheckedGV_TH == false)
-                    {
-                        check = false;
-                        MessageBox.Show("Vui lòng chọn loại giáo viên dạy!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                }
-                finally
-                {
                     if (check)
                     {
-
                         GIAOVIEN gv = new GIAOVIEN()
                         {
-                            MaGV = MaGV,
-                            HoDem = HoDem,
-                            TenGV = TenGV,
+                            MaGV = MaGV.Trim(),
+                            HoDem = HoDem.Trim(),
+                            TenGV = TenGV.Trim(),
                             NgaySinh = NgaySinh,
-                            SoCCCD = SoCCCD,
-                            NoiCT = NoiCT.Content.ToString(),
+                            SoCCCD = SoCCCD.Trim(),
+                            NoiCT = NoiCT.Trim(),
                             GioiTinh = GioiTinh,
-                            Phone = Phone,
-                            TuyenDung = TuyenDung.Content.ToString(),
-                            TrinhDo_SP = TrinhDo_SP,
-                            TrinhDo_VH = TrinhDo_VH,
-                            Nganh_CM = Nganh_CM,
+                            Phone = Phone.Trim(),
+                            TuyenDung = TuyenDung.Trim(),
+                            TrinhDo_SP = TrinhDo_SP.Trim(),
+                            TrinhDo_CM = TrinhDo_CM.Trim(),
+                            TrinhDo_VH = TrinhDo_VH.Trim(),
+                            Nganh_CM = Nganh_CM.Trim(),
                             GV_LT = GV_LT,
                             GV_TH = GV_TH,
-                            SoGCN = SoGCN,
-                            MaSoGTVT = MaSoGTVT,
-                            MaCSDT = MaCSDT,
+                            SoGCN = SoGCN.Trim(),
+                            MaSoGTVT = MaSoGTVT.Trim(),
+                            MaCSDT = MaCSDT.Trim(),
                             TrangThai = TrangThai,
                             AnhCD = AnhCD,
                             NgayCapNhat = DateTime.Now,
                         };
 
                         insert(gv);
+
+                        p.Close();
                     }
                 }
+                catch
+                {
+                    MessageBox.Show("Thêm giáo viên thất bại", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             });
+
+            //edit teacher 
+            editTeacher = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                using (db = new giaothongEntities())
+                {
+                    try
+                    {
+                        var check = validation();
+
+                        var kh = db.GIAOVIENs.Find(MaGV.Trim());
+
+                        if (kh != null)
+                        {
+                            kh.HoDem = HoDem.Trim();
+                            kh.TenGV = TenGV.Trim();
+                            kh.NgaySinh = NgaySinh;
+                            kh.SoCCCD = SoCCCD.Trim();
+                            kh.NoiCT = NoiCT.Trim();
+                            kh.GioiTinh = GioiTinh;
+                            kh.Phone = Phone.Trim();
+                            kh.TuyenDung = TuyenDung.Trim();
+                            kh.TrinhDo_SP = TrinhDo_SP.Trim();
+                            kh.TrinhDo_CM = TrinhDo_CM.Trim();
+                            kh.TrinhDo_VH = TrinhDo_VH.Trim();
+                            kh.Nganh_CM = Nganh_CM.Trim();
+                            kh.GV_LT = GV_LT;
+                            kh.GV_TH = GV_TH;
+                            kh.SoGCN = SoGCN.Trim();
+                            kh.MaSoGTVT = MaSoGTVT.Trim();
+                            kh.MaCSDT = MaCSDT.Trim();
+                            TrangThai = TrangThai;
+
+                            var checkFile = AnhCD.Contains("giaothong");
+
+                            if (checkFile)
+                            {
+                                var index = AnhCD.IndexOf("Images");
+                                AnhCD = AnhCD.Remove(0, index - 1);
+                            }   
+                            
+                            kh.AnhCD = AnhCD;
+
+
+                            kh.NgayCapNhat = DateTime.Now;
+                            db.SaveChanges();
+                            teachers();
+
+                            p.Close();
+                        }
+                    }
+                    catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                    {
+                        MessageBox.Show("Sửa thông tin giáo viên thất bại", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+
+            });
+
 
             //next page
             nextPage = new RelayCommand<string>((p) => { return true; }, (p) =>
@@ -361,6 +505,82 @@ namespace giaothong.ViewModel
                     teachers();
                 }
             });
+        }
+
+        public bool validation()
+        {
+            bool check = true;
+
+
+            var checkBirthDay = checkTypeDate(DateTime.Parse(NgaySinh.ToString()));
+
+            if (!checkBirthDay)
+            {
+                check = false;
+                MessageBox.Show("Giáo viên phải đủ từ 15 tuổi trở lên!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!checkLength(HoDem, 25))
+            {
+                check = false;
+                MessageBox.Show("Họ đệm không hợp lệ hoặc phải dưới 25 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!checkLength(TenGV, 25))
+            {
+                check = false;
+                MessageBox.Show("Tên đệm không hợp lệ hoặc phải dưới 15 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!checkLength(Phone.Trim(), 14))
+            {
+                check = false;
+                MessageBox.Show("Số điện thoại không hợp lệ!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!checkLength(TrinhDo_VH, 10))
+            {
+                check = false;
+                MessageBox.Show("Trình độ văn hóa không hợp lệ hoặc phải dưới 10 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!checkLength(TrinhDo_SP, 10))
+            {
+                check = false;
+                MessageBox.Show("Trình độ sư phạm không hợp lệ hoặc phải dưới 10 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!checkLength(TrinhDo_CM, 10))
+            {
+                check = false;
+                MessageBox.Show("Trình độ chuyên môn không hợp lệ hoặc phải dưới 10 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!checkLength(Nganh_CM, 20))
+            {
+                check = false;
+                MessageBox.Show("Ngành chuyên môn không hợp lệ hoặc phải dưới 20 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!checkLength(MaSoGTVT, 5))
+            {
+                check = false;
+                MessageBox.Show("Mã sở giao thông vận tải không hợp lệ hoặc phải dưới 5 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!checkLength(MaCSDT, 5))
+            {
+                check = false;
+                MessageBox.Show("Mã cơ sở đào tạo không hợp lệ hoặc phải dưới 5 ký tự!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (IsCheckedGV_LT == false && IsCheckedGV_TH == false)
+            {
+                check = false;
+                MessageBox.Show("Vui lòng chọn loại giáo viên dạy!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return check;
         }
 
         //insert teacher
@@ -446,18 +666,22 @@ namespace giaothong.ViewModel
         //get MaGV max
         public string getMaxMaGV()
         {
+            var dateNow = DateTime.Now.ToString("yyyy/MM/dd").Replace("/", "");
+
             if (ListTeacher.Count > 0)
             {
                 var maxMaGV = ListTeacher.Max(p => p.MaGV).Trim();
                 var arrMaGV = maxMaGV.Split('-');
-                var dateNow = DateTime.Now.ToString("yyyy/MM/dd").Replace("/", "");
 
                 if (arrMaGV.Length > 0)
                 {
                     MaGV = arrMaGV[0] + "-" + dateNow + "-" + (Int32.Parse(arrMaGV[2]) + 1);
                 }
             }
-
+            else
+            {
+                MaGV = "52-" + dateNow + "-1";
+            }
             return MaGV;
         }
 
@@ -479,6 +703,35 @@ namespace giaothong.ViewModel
 
             return url;
         }
+
+        //get cities
+        public List<province_city> cities()
+        {
+            using (db = new giaothongEntities())
+            {
+                try
+                {
+                    var teachers = from ct in db.province_city select ct;
+
+                    teachers.ToList().ForEach(p =>
+                    {
+                        province_city ct = new province_city
+                        {
+                            matp = p.matp,
+                            name = p.name,
+                            type = p.type,
+                            slug = p.slug,
+                        };
+
+                        ListCity.Add(ct);
+                    });
+                }
+                catch { }
+            }
+
+            return ListCity;
+        }
+
 
         //get value with index combobox
         public string changeSelectedStatus(int index)
@@ -567,6 +820,28 @@ namespace giaothong.ViewModel
                 }
                 catch { };
             }
+        }
+
+        public void reset()
+        {
+            TenGV = null;
+            HoDem = null;
+            SoCCCD = null;
+            NoiCT = null;
+            GioiTinh = 0;
+            Phone = null;
+            TuyenDung = null;
+            TrinhDo_VH = null;
+            TrinhDo_CM = null;
+            Nganh_CM = null;
+            TrinhDo_SP = null;
+            GV_LT = false;
+            GV_TH = false;
+            SoGCN = null;
+            MaSoGTVT = null;
+            MaCSDT = null;
+            TrangThai = false;
+            AnhCD = null;
         }
 
         //add value to list teacher

@@ -27,6 +27,7 @@ namespace giaothong.Model
     
         public virtual DbSet<GIAOVIEN> GIAOVIENs { get; set; }
         public virtual DbSet<GIAOVIEN_GCN> GIAOVIEN_GCN { get; set; }
+        public virtual DbSet<province_city> province_city { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<USER> USERS { get; set; }
         public virtual DbSet<USERS_ROLE> USERS_ROLE { get; set; }

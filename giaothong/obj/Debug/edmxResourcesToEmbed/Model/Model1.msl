@@ -4,6 +4,7 @@
     <EntitySetMapping Name="GIAOVIENs">
       <EntityTypeMapping TypeName="giaothongModel.GIAOVIEN">
         <MappingFragment StoreEntitySet="GIAOVIEN">
+          <ScalarProperty Name="TrinhDo_CM" ColumnName="TrinhDo_CM" />
           <ScalarProperty Name="NgayDuyet" ColumnName="NgayDuyet" />
           <ScalarProperty Name="NguoiDuyet" ColumnName="NguoiDuyet" />
           <ScalarProperty Name="NgayCapNhat" ColumnName="NgayCapNhat" />
@@ -43,6 +44,16 @@
           <ScalarProperty Name="DonViCap" ColumnName="DonViCap" />
           <ScalarProperty Name="QDCap" ColumnName="QDCap" />
           <ScalarProperty Name="SoGCN" ColumnName="SoGCN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="province_city">
+      <EntityTypeMapping TypeName="giaothongModel.province_city">
+        <MappingFragment StoreEntitySet="province_city">
+          <ScalarProperty Name="slug" ColumnName="slug" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="matp" ColumnName="matp" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
