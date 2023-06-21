@@ -21,8 +21,13 @@ namespace giaothong.ViewModel
         private ObservableCollection<GIAOVIEN> _listTeacher;
         public ObservableCollection<GIAOVIEN> ListTeacher { get => _listTeacher; set => _listTeacher = value; }
 
+        private ObservableCollection<GIAOVIEN_GCN> _listGCN;
+        public ObservableCollection<GIAOVIEN_GCN> ListGCN { get => _listGCN; set => _listGCN = value; }
+
         private List<province_city> _listCity;
         public List<province_city> ListCity { get => _listCity; set => _listCity = value; }
+
+
 
         private string _maGV;
         public string MaGV { get => _maGV; set { _maGV = value; OnPropertyChanged(); } }
@@ -57,32 +62,6 @@ namespace giaothong.ViewModel
 
         private int _totalPages;
         public int TotalPages { get => _totalPages; set { _totalPages = value; OnPropertyChanged(); } }
-
-
-        private int _selectedIndexStatus;
-        public int SelectedIndexStatus { get => _selectedIndexStatus; set { _selectedIndexStatus = value; OnPropertyChanged(); if (SelectedIndexStatus == 0) { TrangThai = false; } else { TrangThai = true; }; } }
-
-
-        private bool _isCheckedGender;
-        public bool IsCheckedGender
-        {
-            get => _isCheckedGender;
-            set
-            {
-                _isCheckedGender = value;
-                OnPropertyChanged();
-
-                if (IsCheckedGender)
-                {
-                    GioiTinh = 0;
-                }
-                else
-                {
-                    GioiTinh = 1;
-                }
-            }
-        }
-
 
         private string _tuyenDung;
         public string TuyenDung { get => _tuyenDung; set { _tuyenDung = value; OnPropertyChanged(); } }
@@ -133,12 +112,56 @@ namespace giaothong.ViewModel
         public string AnhCD { get => _anhCD; set { _anhCD = value; OnPropertyChanged(); } }
 
 
+        private int _selectedIndexStatus;
+        public int SelectedIndexStatus
+        {
+            get => _selectedIndexStatus;
+            set
+            {
+                _selectedIndexStatus = value;
+                OnPropertyChanged();
+
+                if (SelectedIndexStatus == 0)
+                {
+                    TrangThai = true;
+                }
+                else
+                {
+                    TrangThai = false;
+                };
+            }
+        }
+
+
+        private bool _isCheckedGender;
+        public bool IsCheckedGender
+        {
+            get => _isCheckedGender;
+            set
+            {
+                _isCheckedGender = value;
+                OnPropertyChanged();
+
+                if (IsCheckedGender)
+                {
+                    GioiTinh = 0;
+                }
+                else
+                {
+                    GioiTinh = 1;
+                }
+            }
+        }
+
+
         private int _selectedIndexNoiCT;
         public int SelectedIndexNoiCT
         {
-            get => _selectedIndexNoiCT; set
+            get => _selectedIndexNoiCT; 
+            set
             {
-                _selectedIndexNoiCT = value; OnPropertyChanged();
+                _selectedIndexNoiCT = value; 
+                OnPropertyChanged();
 
                 int index = 0;
 
@@ -149,8 +172,28 @@ namespace giaothong.ViewModel
                         NoiCT = ListCity[index].name;
                         break;
                     }
+                }
+            }
+        }
 
-                    index++;
+        private int _selectedIndexGCN;
+        public int SelectedIndexGCN
+        {
+            get => _selectedIndexGCN;
+            set
+            {
+                _selectedIndexGCN = value;
+                OnPropertyChanged();
+
+                int index = 0;
+
+                for (index = 0; index < ListGCN.Count(); index++)
+                {
+                    if (index == SelectedIndexGCN)
+                    {
+                        SoGCN = ListGCN[index].SoGCN.Trim();
+                        break;
+                    }
                 }
             }
         }
@@ -158,7 +201,8 @@ namespace giaothong.ViewModel
         private int _selectedIndexTD;
         public int SelectedIndexTD
         {
-            get => _selectedIndexTD; set
+            get => _selectedIndexTD; 
+            set
             {
                 _selectedIndexTD = value;
                 OnPropertyChanged();
@@ -248,6 +292,15 @@ namespace giaothong.ViewModel
                     MaSoGTVT = SelectedItem.MaSoGTVT;
                     MaCSDT = SelectedItem.MaCSDT;
                     TrangThai = SelectedItem.TrangThai.Value;
+
+                    if(TrangThai == true)
+                    {
+                        SelectedIndexStatus = 0;
+                    }else
+                    {
+                        SelectedIndexStatus = 1;
+                    }
+
                     AnhCD = SelectedItem.AnhCD;
                     SelectedImage = AnhCD;
                 }
@@ -265,26 +318,64 @@ namespace giaothong.ViewModel
         public ICommand nextPage { get; set; }
         public ICommand previousPage { get; set; }
         public ICommand previewMouseLeftButtonUp { get; set; }
+        public ICommand Checked { get; set; }
+        public ICommand RemoveTeacher { get; set; }
 
         public TeacherViewModel()
         {
             ListTeacher = new ObservableCollection<GIAOVIEN>();
+            ListGCN = new ObservableCollection<GIAOVIEN_GCN>();
             ListCity = new List<province_city>();
+
             NgaySinh = DateTime.Now;
             GioiTinh = 1;
             CurrentPage = 1;
 
             teachers();
             cities();
+            listGCN();
+
+            //remove teacher get out list
+            RemoveTeacher = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                using (db = new giaothongEntities())
+                {
+                    try
+                    {
+                        var message = MessageBox.Show("Bạn có thật sự muốn xóa giáo viên này khỏi danh sách ?", "Thông Báo", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+                        if(MessageBoxResult.OK == message)
+                        {
+                            var kh = db.GIAOVIENs.Find(MaGV.Trim());
+                            if (kh != null)
+                            {
+                                db.GIAOVIENs.Remove(kh);
+                                db.SaveChanges();
+
+                                var index = ListTeacher.ToList().FindIndex(t => t.MaGV == MaGV);
+                                ListTeacher.RemoveAt(index);
+
+                                MessageBox.Show("Giáo viên đã được xóa khỏi danh sách", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                                p.Close();
+                            }
+                        }    
+                    }catch
+                    {
+                        MessageBox.Show("Không thể xóa giáo viên lúc này", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            });
 
             //open window edit teacher
             previewMouseLeftButtonUp = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                p.Hide();
-                EditTeacherWindow teacher = new EditTeacherWindow();
-                teacher.ShowDialog();
-                p.ShowDialog();
-
+                if(SelectedItem != null)
+                {
+                    p.Hide();
+                    EditTeacherWindow teacher = new EditTeacherWindow();
+                    teacher.ShowDialog();
+                    p.ShowDialog();
+                }
             });
 
             //close view teacher window
@@ -297,6 +388,7 @@ namespace giaothong.ViewModel
             closeInsertTeacherWindow = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 p.Close();
+                SelectedItem = null;
             });
 
             //selectected change filter status teacher
@@ -318,6 +410,20 @@ namespace giaothong.ViewModel
             {
                 getMaxMaGV();
                 reset();
+
+                SelectedIndexTD = 0;
+
+                if(ListGCN.Count > 0)
+                {
+                    SoGCN = ListGCN[0].SoGCN.Trim();
+                }
+
+                if(ListCity.Count > 0)
+                {
+                    NoiCT = ListCity[0].name.Trim();
+                }
+
+                SelectedIndexStatus = 1;
 
                 p.Hide();
                 InsertTeacher inserTeacher = new InsertTeacher();
@@ -432,8 +538,7 @@ namespace giaothong.ViewModel
             {
                 using (db = new giaothongEntities())
                 {
-                    try
-                    {
+
                         var check = validation();
 
                         var kh = db.GIAOVIENs.Find(MaGV.Trim());
@@ -457,7 +562,7 @@ namespace giaothong.ViewModel
                             kh.SoGCN = SoGCN.Trim();
                             kh.MaSoGTVT = MaSoGTVT.Trim();
                             kh.MaCSDT = MaCSDT.Trim();
-                            TrangThai = TrangThai;
+                            kh.TrangThai = TrangThai;
 
                             var checkFile = AnhCD.Contains("giaothong");
 
@@ -469,18 +574,13 @@ namespace giaothong.ViewModel
                             
                             kh.AnhCD = AnhCD;
 
-
                             kh.NgayCapNhat = DateTime.Now;
                             db.SaveChanges();
                             teachers();
 
                             p.Close();
                         }
-                    }
-                    catch (System.Data.Entity.Validation.DbEntityValidationException ex)
-                    {
-                        MessageBox.Show("Sửa thông tin giáo viên thất bại", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+    
                 }
 
             });
@@ -507,10 +607,28 @@ namespace giaothong.ViewModel
             });
         }
 
+        //get list teacher GCN
+        public ObservableCollection<GIAOVIEN_GCN> listGCN()
+        {
+            using(db = new giaothongEntities())
+            {
+                var gcn = from c in db.GIAOVIEN_GCN
+                          where !db.GIAOVIENs.Any(v => v.SoGCN == c.SoGCN) 
+                          select c;
+
+                gcn.ToList().ForEach(p =>
+                {
+                    ListGCN.Add(p);
+                });
+
+                return ListGCN;
+            }
+        }
+
+        //validate information teacher
         public bool validation()
         {
             bool check = true;
-
 
             var checkBirthDay = checkTypeDate(DateTime.Parse(NgaySinh.ToString()));
 
@@ -635,10 +753,9 @@ namespace giaothong.ViewModel
         {
             using (db = new giaothongEntities())
             {
-                var query = (from gcn in db.GIAOVIEN_GCN where gcn.SoGCN == soGCN select gcn).Count();
-                var queryExist = (from gv in db.GIAOVIENs join gcn in db.GIAOVIEN_GCN on gv.SoGCN equals gcn.SoGCN where gcn.SoGCN == soGCN select gcn).Count();
+                var query = (from gcn in db.GIAOVIENs where gcn.SoGCN == soGCN select gcn).Count();
 
-                if (query != 1 || queryExist > 0)
+                if (query == 1)
                 {
                     return false;
                 }

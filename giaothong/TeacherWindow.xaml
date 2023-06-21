@@ -25,7 +25,7 @@
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
             </Grid.RowDefinitions>
 
@@ -96,17 +96,12 @@
                         Foreground="#ffffff"
                         Command="{Binding viewInsertTeacher}"
                         CommandParameter="{Binding ElementName=teacherWindow}">
-
                     </Button>
                 </WrapPanel>
             </Grid>
 
             <Grid Grid.Row="3" Margin="10 0 10 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="559*"/>
-                    <ColumnDefinition Width="21*"/>
-                </Grid.ColumnDefinitions>
-                <ListView ItemsSource="{Binding ListTeacher}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"  ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2">
+                <ListView Height="auto" ItemsSource="{Binding ListTeacher}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"  ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn>
