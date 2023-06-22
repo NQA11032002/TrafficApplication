@@ -43,6 +43,16 @@
     <Property Name="AnhGCN" Type="text" />
     <Property Name="NguoiCapNhat" Type="nvarchar" MaxLength="15" />
     <Property Name="NgayCapNhat" Type="date" />
+    <Property Name="MaDVKiemTra" Type="nvarchar" MaxLength="5" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'giaothong.dbo.HangXe' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="HangXe">
+    <Key>
+      <PropertyRef Name="mahx" />
+    </Key>
+    <Property Name="mahx" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ten" Type="varchar" MaxLength="5" />
   </EntityType>
   <EntityType Name="province_city">
     <Key>
@@ -157,6 +167,12 @@
     <EntitySet Name="USERS_ROLE" EntityType="Self.USERS_ROLE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="XETAPLAI" EntityType="Self.XETAPLAI" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="XETAPLAI_GP" EntityType="Self.XETAPLAI_GP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HangXe" EntityType="Self.HangXe" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [HangXe].[mahx] AS [mahx], 
+    [HangXe].[ten] AS [ten]
+    FROM [dbo].[HangXe] AS [HangXe]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="fk_user_role" Association="Self.fk_user_role">
       <End Role="USERS_ROLE" EntitySet="USERS_ROLE" />
       <End Role="USERS" EntitySet="USERS" />

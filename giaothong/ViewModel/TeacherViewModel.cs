@@ -157,10 +157,10 @@ namespace giaothong.ViewModel
         private int _selectedIndexNoiCT;
         public int SelectedIndexNoiCT
         {
-            get => _selectedIndexNoiCT; 
+            get => _selectedIndexNoiCT;
             set
             {
-                _selectedIndexNoiCT = value; 
+                _selectedIndexNoiCT = value;
                 OnPropertyChanged();
 
                 int index = 0;
@@ -201,7 +201,7 @@ namespace giaothong.ViewModel
         private int _selectedIndexTD;
         public int SelectedIndexTD
         {
-            get => _selectedIndexTD; 
+            get => _selectedIndexTD;
             set
             {
                 _selectedIndexTD = value;
@@ -293,10 +293,11 @@ namespace giaothong.ViewModel
                     MaCSDT = SelectedItem.MaCSDT;
                     TrangThai = SelectedItem.TrangThai.Value;
 
-                    if(TrangThai == true)
+                    if (TrangThai == true)
                     {
                         SelectedIndexStatus = 0;
-                    }else
+                    }
+                    else
                     {
                         SelectedIndexStatus = 1;
                     }
@@ -320,6 +321,7 @@ namespace giaothong.ViewModel
         public ICommand previewMouseLeftButtonUp { get; set; }
         public ICommand Checked { get; set; }
         public ICommand RemoveTeacher { get; set; }
+        public ICommand viewGCN { get; set; }
 
         public TeacherViewModel()
         {
@@ -344,7 +346,7 @@ namespace giaothong.ViewModel
                     {
                         var message = MessageBox.Show("Bạn có thật sự muốn xóa giáo viên này khỏi danh sách ?", "Thông Báo", MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
-                        if(MessageBoxResult.OK == message)
+                        if (MessageBoxResult.OK == message)
                         {
                             var kh = db.GIAOVIENs.Find(MaGV.Trim());
                             if (kh != null)
@@ -358,8 +360,9 @@ namespace giaothong.ViewModel
                                 MessageBox.Show("Giáo viên đã được xóa khỏi danh sách", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Information);
                                 p.Close();
                             }
-                        }    
-                    }catch
+                        }
+                    }
+                    catch
                     {
                         MessageBox.Show("Không thể xóa giáo viên lúc này", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
@@ -369,13 +372,24 @@ namespace giaothong.ViewModel
             //open window edit teacher
             previewMouseLeftButtonUp = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                if(SelectedItem != null)
+                if (SelectedItem != null)
                 {
                     p.Hide();
                     EditTeacherWindow teacher = new EditTeacherWindow();
                     teacher.ShowDialog();
                     p.ShowDialog();
                 }
+            });
+
+            //view gcn
+            viewGCN = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Hide();
+                TeacherGCNWindow teacherGCN = new TeacherGCNWindow();
+                teacherGCN.ShowDialog();
+                teachers();
+                listGCN();
+                p.ShowDialog();
             });
 
             //close view teacher window
@@ -413,12 +427,12 @@ namespace giaothong.ViewModel
 
                 SelectedIndexTD = 0;
 
-                if(ListGCN.Count > 0)
+                if (ListGCN.Count > 0)
                 {
                     SoGCN = ListGCN[0].SoGCN.Trim();
                 }
 
-                if(ListCity.Count > 0)
+                if (ListCity.Count > 0)
                 {
                     NoiCT = ListCity[0].name.Trim();
                 }
@@ -494,6 +508,11 @@ namespace giaothong.ViewModel
                         MessageBox.Show("Số CCCD/CMND đã tồn tại!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
+                    if (SoGCN != null)
+                    {
+                        check = false;
+                        MessageBox.Show("Vui lòng chọn giấy chứng nhận hoặc tạo giấy chứng nhận mới!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
 
                     if (check)
                     {
@@ -538,51 +557,59 @@ namespace giaothong.ViewModel
             {
                 using (db = new giaothongEntities())
                 {
-
+                    try
+                    {
                         var check = validation();
 
-                        var kh = db.GIAOVIENs.Find(MaGV.Trim());
-
-                        if (kh != null)
+                        if(check)
                         {
-                            kh.HoDem = HoDem.Trim();
-                            kh.TenGV = TenGV.Trim();
-                            kh.NgaySinh = NgaySinh;
-                            kh.SoCCCD = SoCCCD.Trim();
-                            kh.NoiCT = NoiCT.Trim();
-                            kh.GioiTinh = GioiTinh;
-                            kh.Phone = Phone.Trim();
-                            kh.TuyenDung = TuyenDung.Trim();
-                            kh.TrinhDo_SP = TrinhDo_SP.Trim();
-                            kh.TrinhDo_CM = TrinhDo_CM.Trim();
-                            kh.TrinhDo_VH = TrinhDo_VH.Trim();
-                            kh.Nganh_CM = Nganh_CM.Trim();
-                            kh.GV_LT = GV_LT;
-                            kh.GV_TH = GV_TH;
-                            kh.SoGCN = SoGCN.Trim();
-                            kh.MaSoGTVT = MaSoGTVT.Trim();
-                            kh.MaCSDT = MaCSDT.Trim();
-                            kh.TrangThai = TrangThai;
 
-                            var checkFile = AnhCD.Contains("giaothong");
+                            var kh = db.GIAOVIENs.Find(MaGV.Trim());
 
-                            if (checkFile)
+                            if (kh != null)
                             {
-                                var index = AnhCD.IndexOf("Images");
-                                AnhCD = AnhCD.Remove(0, index - 1);
-                            }   
-                            
-                            kh.AnhCD = AnhCD;
+                                kh.HoDem = HoDem.Trim();
+                                kh.TenGV = TenGV.Trim();
+                                kh.NgaySinh = NgaySinh;
+                                kh.SoCCCD = SoCCCD.Trim();
+                                kh.NoiCT = NoiCT.Trim();
+                                kh.GioiTinh = GioiTinh;
+                                kh.Phone = Phone.Trim();
+                                kh.TuyenDung = TuyenDung.Trim();
+                                kh.TrinhDo_SP = TrinhDo_SP.Trim();
+                                kh.TrinhDo_CM = TrinhDo_CM.Trim();
+                                kh.TrinhDo_VH = TrinhDo_VH.Trim();
+                                kh.Nganh_CM = Nganh_CM.Trim();
+                                kh.GV_LT = GV_LT;
+                                kh.GV_TH = GV_TH;
+                                kh.SoGCN = SoGCN.Trim();
+                                kh.MaSoGTVT = MaSoGTVT.Trim();
+                                kh.MaCSDT = MaCSDT.Trim();
+                                kh.TrangThai = TrangThai;
 
-                            kh.NgayCapNhat = DateTime.Now;
-                            db.SaveChanges();
-                            teachers();
+                                var checkFile = AnhCD.Contains("giaothong");
 
-                            p.Close();
-                        }
-    
+                                if (checkFile)
+                                {
+                                    var index = AnhCD.IndexOf("Images");
+                                    AnhCD = AnhCD.Remove(0, index - 1);
+                                }
+
+                                kh.AnhCD = AnhCD;
+
+                                kh.NgayCapNhat = DateTime.Now;
+                                db.SaveChanges();
+                                teachers();
+
+                                p.Close();
+                            }
+                        }    
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Cập nhật thông tin giáo viên thất bại", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-
             });
 
 
@@ -592,7 +619,8 @@ namespace giaothong.ViewModel
                 if (CurrentPage < TotalPages)
                 {
                     CurrentPage++;
-                    teachers();
+                    var selectedValue = changeSelectedStatus(SelectedIndex);
+                    teachers(selectedValue, SearchTeacher);
                 }
             });
 
@@ -602,7 +630,8 @@ namespace giaothong.ViewModel
                 if (CurrentPage > 1)
                 {
                     CurrentPage--;
-                    teachers();
+                    var selectedValue = changeSelectedStatus(SelectedIndex);
+                    teachers(selectedValue, SearchTeacher);
                 }
             });
         }
@@ -610,10 +639,12 @@ namespace giaothong.ViewModel
         //get list teacher GCN
         public ObservableCollection<GIAOVIEN_GCN> listGCN()
         {
-            using(db = new giaothongEntities())
+            using (db = new giaothongEntities())
             {
+                ListGCN.Clear();
+
                 var gcn = from c in db.GIAOVIEN_GCN
-                          where !db.GIAOVIENs.Any(v => v.SoGCN == c.SoGCN) 
+                          where !db.GIAOVIENs.Any(v => v.SoGCN == c.SoGCN)
                           select c;
 
                 gcn.ToList().ForEach(p =>

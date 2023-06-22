@@ -34,6 +34,7 @@
     <EntitySetMapping Name="GIAOVIEN_GCN">
       <EntityTypeMapping TypeName="giaothongModel.GIAOVIEN_GCN">
         <MappingFragment StoreEntitySet="GIAOVIEN_GCN">
+          <ScalarProperty Name="MaDVKiemTra" ColumnName="MaDVKiemTra" />
           <ScalarProperty Name="NgayCapNhat" ColumnName="NgayCapNhat" />
           <ScalarProperty Name="NguoiCapNhat" ColumnName="NguoiCapNhat" />
           <ScalarProperty Name="AnhGCN" ColumnName="AnhGCN" />
@@ -128,6 +129,14 @@
           <ScalarProperty Name="MaDonViCap" ColumnName="MaDonViCap" />
           <ScalarProperty Name="SoDangKy" ColumnName="SoDangKy" />
           <ScalarProperty Name="SoGPXTL" ColumnName="SoGPXTL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HangXes">
+      <EntityTypeMapping TypeName="giaothongModel.HangXe">
+        <MappingFragment StoreEntitySet="HangXe">
+          <ScalarProperty Name="ten" ColumnName="ten" />
+          <ScalarProperty Name="mahx" ColumnName="mahx" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

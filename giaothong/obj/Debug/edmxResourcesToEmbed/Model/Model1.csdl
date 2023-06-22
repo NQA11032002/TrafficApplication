@@ -9,6 +9,7 @@
     <EntitySet Name="USERS_ROLE" EntityType="giaothongModel.USERS_ROLE" />
     <EntitySet Name="XETAPLAIs" EntityType="giaothongModel.XETAPLAI" />
     <EntitySet Name="XETAPLAI_GP" EntityType="giaothongModel.XETAPLAI_GP" />
+    <EntitySet Name="HangXes" EntityType="giaothongModel.HangXe" />
     <AssociationSet Name="fk_user_role" Association="giaothongModel.fk_user_role">
       <End Role="USERS_ROLE" EntitySet="USERS_ROLE" />
       <End Role="USER" EntitySet="USERS" />
@@ -61,6 +62,7 @@
     <Property Name="AnhGCN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="NguoiCapNhat" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="NgayCapNhat" Type="DateTime" Precision="0" />
+    <Property Name="MaDVKiemTra" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="province_city">
     <Key>
@@ -143,6 +145,13 @@
     <Property Name="NguoiCapNhat" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="DuongTapLai" Type="String" MaxLength="200" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="XETAPLAIs" Relationship="giaothongModel.fk_xetl_gp" FromRole="XETAPLAI_GP" ToRole="XETAPLAI" />
+  </EntityType>
+  <EntityType Name="HangXe">
+    <Key>
+      <PropertyRef Name="mahx" />
+    </Key>
+    <Property Name="mahx" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ten" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="fk_user_role">
     <End Type="giaothongModel.USERS_ROLE" Role="USERS_ROLE" Multiplicity="0..1" />

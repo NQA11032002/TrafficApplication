@@ -65,7 +65,9 @@ create table GIAOVIEN_GCN
 	NguoiCapNhat nvarchar(15),
 	NgayCapNhat date
 )
+
 alter table GIAOVIEN add constraint fk_giaovien_gcn foreign key(SoGCN) references GIAOVIEN_GCN(SoGCN) on delete cascade
+ALTER TABLE GIAOVIEN_GCN ADD MaDVKiemTra nvarchar(5);
 
 create table XETAPLAI	
 (
@@ -110,9 +112,29 @@ CREATE TABLE province_city (
   type varchar(30) NOT NULL,
   slug varchar(30) DEFAULT NULL
 )
-
 ALTER TABLE province_city
 ALTER column name nvarchar(100);
+
+CREATE TABLE HangXe
+(
+	mahx int identity(1,1),
+	ten varchar(5)
+)
+
+INSERT INTO HangXe(ten) VALUES
+('A1'),
+('A2'),
+('A3'),
+('A4'),
+('B1'),
+('B2'),
+('C'),
+('D'),
+('E'),
+('FB2'),
+('FC'),
+('FD'),
+('FE');
 
 INSERT INTO province_city(
 matp, name, type, slug) VALUES

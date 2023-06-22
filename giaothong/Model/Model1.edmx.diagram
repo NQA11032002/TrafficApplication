@@ -13,6 +13,7 @@
         <EntityTypeShape EntityType="giaothongModel.USERS_ROLE" Width="1.5" PointX="5.75" PointY="1.625" />
         <EntityTypeShape EntityType="giaothongModel.XETAPLAI" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="giaothongModel.XETAPLAI_GP" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="giaothongModel.HangXe" Width="1.5" PointX="7.75" PointY="7.75" />
         <AssociationConnector Association="giaothongModel.fk_user_role" />
         <AssociationConnector Association="giaothongModel.fk_xetl_gp" />
       </Diagram>

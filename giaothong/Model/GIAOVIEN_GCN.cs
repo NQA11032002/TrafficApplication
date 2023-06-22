@@ -24,5 +24,6 @@ namespace giaothong.Model
         public string AnhGCN { get; set; }
         public string NguoiCapNhat { get; set; }
         public Nullable<System.DateTime> NgayCapNhat { get; set; }
+        public string MaDVKiemTra { get; set; }
     }
 }

@@ -46,3 +46,9 @@ F:\WPF\giaothong\giaothong\obj\Debug\InsertTeacherWindow.g.cs
 F:\WPF\giaothong\giaothong\obj\Debug\InsertTeacherWindow.baml
 F:\WPF\giaothong\giaothong\obj\Debug\EditTeacherWindow.g.cs
 F:\WPF\giaothong\giaothong\obj\Debug\EditTeacherWindow.baml
+F:\WPF\giaothong\giaothong\obj\Debug\TeacherGCNWindow.g.cs
+F:\WPF\giaothong\giaothong\obj\Debug\TeacherGCNWindow.baml
+F:\WPF\giaothong\giaothong\obj\Debug\InsertTeacherGCNWindow.g.cs
+F:\WPF\giaothong\giaothong\obj\Debug\InsertTeacherGCNWindow.baml
+F:\WPF\giaothong\giaothong\obj\Debug\EditTeacherGCNWindow.g.cs
+F:\WPF\giaothong\giaothong\obj\Debug\EditTeacherGCNWindow.baml

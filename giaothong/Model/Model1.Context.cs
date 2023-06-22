@@ -33,5 +33,6 @@ namespace giaothong.Model
         public virtual DbSet<USERS_ROLE> USERS_ROLE { get; set; }
         public virtual DbSet<XETAPLAI> XETAPLAIs { get; set; }
         public virtual DbSet<XETAPLAI_GP> XETAPLAI_GP { get; set; }
+        public virtual DbSet<HangXe> HangXes { get; set; }
     }
 }

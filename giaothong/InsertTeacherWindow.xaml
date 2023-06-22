@@ -17,7 +17,7 @@
         AllowsTransparency="True" 
         Background="Transparent"
         Title="Teacher Window" 
-        Height="650" 
+        Height="620" 
         Width="1180">
     <Border CornerRadius="10" Background="#ffffff">
         <Grid>

@@ -88,6 +88,19 @@
 
                     <Button
                         Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="145"
+                        ToolTip="Resource name: MaterialDesignRaisedButton"
+                        Content="Giấy chứng nhận"
+                        Margin="0 0 10 0"
+                        BorderThickness="0"
+                        Background="#08bf96"
+                        Foreground="#ffffff"
+                        Command="{Binding viewGCN}"
+                        CommandParameter="{Binding ElementName=teacherWindow}">
+                    </Button>
+
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedButton}"
                         Width="130"
                         ToolTip="Resource name: MaterialDesignRaisedButton"
                         Content="Thêm giáo viên"

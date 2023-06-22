@@ -48,6 +48,16 @@
           <Property Name="AnhGCN" Type="text" />
           <Property Name="NguoiCapNhat" Type="nvarchar" MaxLength="15" />
           <Property Name="NgayCapNhat" Type="date" />
+          <Property Name="MaDVKiemTra" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'giaothong.dbo.HangXe' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="HangXe">
+          <Key>
+            <PropertyRef Name="mahx" />
+          </Key>
+          <Property Name="mahx" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="province_city">
           <Key>
@@ -162,6 +172,12 @@
           <EntitySet Name="USERS_ROLE" EntityType="Self.USERS_ROLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="XETAPLAI" EntityType="Self.XETAPLAI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="XETAPLAI_GP" EntityType="Self.XETAPLAI_GP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HangXe" EntityType="Self.HangXe" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [HangXe].[mahx] AS [mahx], 
+    [HangXe].[ten] AS [ten]
+    FROM [dbo].[HangXe] AS [HangXe]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="fk_user_role" Association="Self.fk_user_role">
             <End Role="USERS_ROLE" EntitySet="USERS_ROLE" />
             <End Role="USERS" EntitySet="USERS" />
@@ -184,6 +200,7 @@
           <EntitySet Name="USERS_ROLE" EntityType="giaothongModel.USERS_ROLE" />
           <EntitySet Name="XETAPLAIs" EntityType="giaothongModel.XETAPLAI" />
           <EntitySet Name="XETAPLAI_GP" EntityType="giaothongModel.XETAPLAI_GP" />
+          <EntitySet Name="HangXes" EntityType="giaothongModel.HangXe" />
           <AssociationSet Name="fk_user_role" Association="giaothongModel.fk_user_role">
             <End Role="USERS_ROLE" EntitySet="USERS_ROLE" />
             <End Role="USER" EntitySet="USERS" />
@@ -236,6 +253,7 @@
           <Property Name="AnhGCN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="NguoiCapNhat" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="NgayCapNhat" Type="DateTime" Precision="0" />
+          <Property Name="MaDVKiemTra" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="province_city">
           <Key>
@@ -319,6 +337,13 @@
           <Property Name="DuongTapLai" Type="String" MaxLength="200" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="XETAPLAIs" Relationship="giaothongModel.fk_xetl_gp" FromRole="XETAPLAI_GP" ToRole="XETAPLAI" />
         </EntityType>
+        <EntityType Name="HangXe">
+          <Key>
+            <PropertyRef Name="mahx" />
+          </Key>
+          <Property Name="mahx" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
         <Association Name="fk_user_role">
           <End Type="giaothongModel.USERS_ROLE" Role="USERS_ROLE" Multiplicity="0..1" />
           <End Type="giaothongModel.USER" Role="USER" Multiplicity="*" />
@@ -384,6 +409,7 @@
           <EntitySetMapping Name="GIAOVIEN_GCN">
             <EntityTypeMapping TypeName="giaothongModel.GIAOVIEN_GCN">
               <MappingFragment StoreEntitySet="GIAOVIEN_GCN">
+                <ScalarProperty Name="MaDVKiemTra" ColumnName="MaDVKiemTra" />
                 <ScalarProperty Name="NgayCapNhat" ColumnName="NgayCapNhat" />
                 <ScalarProperty Name="NguoiCapNhat" ColumnName="NguoiCapNhat" />
                 <ScalarProperty Name="AnhGCN" ColumnName="AnhGCN" />
@@ -478,6 +504,14 @@
                 <ScalarProperty Name="MaDonViCap" ColumnName="MaDonViCap" />
                 <ScalarProperty Name="SoDangKy" ColumnName="SoDangKy" />
                 <ScalarProperty Name="SoGPXTL" ColumnName="SoGPXTL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HangXes">
+            <EntityTypeMapping TypeName="giaothongModel.HangXe">
+              <MappingFragment StoreEntitySet="HangXe">
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="mahx" ColumnName="mahx" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
