@@ -76,6 +76,7 @@
 
                 <WrapPanel Margin="0 0 10 0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button
+                        Command="{Binding ExportExcel}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Width="100"
                         Margin="0 0 10 0"

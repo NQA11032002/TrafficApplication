@@ -12,6 +12,12 @@ using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Windows.Documents;
+using System.Data;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using folder = System.Windows.Forms;
 
 namespace giaothong.ViewModel
 {
@@ -23,6 +29,9 @@ namespace giaothong.ViewModel
 
         private ObservableCollection<GIAOVIEN_GCN> _listGCN;
         public ObservableCollection<GIAOVIEN_GCN> ListGCN { get => _listGCN; set => _listGCN = value; }
+
+        private ObservableCollection<GIAOVIEN_GCN> _listAllGCN;
+        public ObservableCollection<GIAOVIEN_GCN> ListAllGCN { get => _listAllGCN; set => _listAllGCN = value; }
 
         private List<province_city> _listCity;
         public List<province_city> ListCity { get => _listCity; set => _listCity = value; }
@@ -322,11 +331,12 @@ namespace giaothong.ViewModel
         public ICommand Checked { get; set; }
         public ICommand RemoveTeacher { get; set; }
         public ICommand viewGCN { get; set; }
-
+        public ICommand ExportExcel { get; set; }
         public TeacherViewModel()
         {
             ListTeacher = new ObservableCollection<GIAOVIEN>();
             ListGCN = new ObservableCollection<GIAOVIEN_GCN>();
+            ListAllGCN = new ObservableCollection<GIAOVIEN_GCN>();
             ListCity = new List<province_city>();
 
             NgaySinh = DateTime.Now;
@@ -336,6 +346,229 @@ namespace giaothong.ViewModel
             teachers();
             cities();
             listGCN();
+            listAllGCN();
+
+            //export file excel
+            ExportExcel = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                //string filePath = "";
+                // tạo SaveFileDialog để lưu file excel
+                //SaveFileDialog dialog = new SaveFileDialog();
+                folder.FolderBrowserDialog folderBrowserDialog = new folder.FolderBrowserDialog();
+
+                // chỉ lọc ra các file có định dạng Excel
+                //dialog.Filter = "Excel | *.xlsx | Excel 2003 | *.xls";
+
+                // Nếu mở file và chọn nơi lưu file thành công sẽ lưu tên đường dẫn
+                //if (dialog.ShowDialog() == true)
+                //{
+                //    filePath = dialog.FileName;
+                //}
+
+                string folderPath = "";
+
+                if (folderBrowserDialog.ShowDialog() == folder.DialogResult.OK)
+                {
+                    folderPath = folderBrowserDialog.SelectedPath;
+                }
+
+                // nếu đường dẫn null hoặc rỗng thì báo không hợp lệ và return hàm
+                //if (string.IsNullOrEmpty(filePath))
+                //{
+                //    MessageBox.Show("Đường dẫn không hợp lệ");
+                //    return;
+                //}
+
+                //Không phải doanh nghiệp tránh bản quyền
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                using (ExcelPackage u = new ExcelPackage())
+                {
+                    try
+                    {
+                        // đặt tên người tạo file
+                        u.Workbook.Properties.Author = "Nguyễn Quốc Anh";
+
+                        // đặt tiêu đề cho file
+                        u.Workbook.Properties.Title = "DANH SÁCH TRÍCH NGANG GIÁO VIÊN DẠY LÁI XE";
+
+                        //Tạo một sheet để làm việc trên đó
+                        u.Workbook.Worksheets.Add("CTDV");
+
+                        // lấy sheet vừa add ra để thao tác
+                        ExcelWorksheet ws = u.Workbook.Worksheets[0];
+
+                        // đặt tên cho sheet
+                        ws.Name = "CTNH";
+                        // fontsize mặc định cho cả sheet
+                        ws.Cells.Style.Font.Size = 11;
+                        // font family mặc định cho cả sheet
+                        ws.Cells.Style.Font.Name = "Calibri";
+
+                        // Tạo danh sách các column header
+                        string[] arrColumnHeader = { "STT", "Họ và Tên", "Ngày tháng năm sinh", "Số giấy chứng minh nhân dân", "Biên chế (HTTD)", "Hợp đồng (HTTD)", "Văn hóa", "Chuyên môn", "Sư phạm", "Hạng giấy phép", "Ngày trúng tuyển", "Phân công giảng dạy", "Ghi chú" };
+
+                        // lấy ra số lượng cột cần dùng dựa vào số lượng header
+                        var countColHeader = arrColumnHeader.Count();
+
+                        // merge gộp các column lại từ column 1 đến số column header
+                        // đặt tên cho bảng excel
+                        ws.Cells[1, 1].Value = "DANH SÁCH TRÍCH NGANG GIÁO VIÊN DẠY LÁI XE";
+                        ws.Cells[1, 1, 1, countColHeader].Merge = true;
+                        // in đậm
+                        ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
+                        // căn giữa
+                        ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        int colIndex = 1;
+                        int rowIndex = 2;
+
+                        //tạo các cột excel từ mảng cột đã tạo từ bên trên
+                        foreach (var item in arrColumnHeader)
+                        {
+                            var cell = ws.Cells[rowIndex, colIndex];
+                            //set màu thành gray
+                            var fill = cell.Style.Fill;
+                            fill.PatternType = ExcelFillStyle.Solid;
+                            fill.BackgroundColor.SetColor(System.Drawing.Color.Transparent);
+
+                            //căn chỉnh các border
+                            var border = cell.Style.Border;
+                            border.Bottom.Style = ExcelBorderStyle.Thin;
+                            border.Top.Style = ExcelBorderStyle.Thin;
+                            border.Left.Style = ExcelBorderStyle.Thin;
+                            border.Right.Style = ExcelBorderStyle.Thin;
+
+                            //gán giá trị
+                            cell.Value = item;
+
+                            colIndex++;
+                        }
+
+                        // lấy ra danh sách CTDV từ ItemSource của ListView
+
+                        if (ListTeacher.Count > 0)
+                        {
+                            double? sum = 0.0d;
+
+
+                            // với mỗi item trong danh sách sẽ ghi trên 1 dòng
+                            List<GIAOVIEN> teachers = ListTeacher.Cast<GIAOVIEN>().ToList();
+
+                            foreach (var item in teachers)
+                            {
+                                // bắt đầu ghi từ cột 1. Excel bắt đầu từ 1 không phải từ 0
+                                colIndex = 1;
+
+                                // rowIndex tương ứng từng dòng dữ liệu
+                                rowIndex++;
+
+                                //gán giá trị cho từng cell
+                                ws.Cells[rowIndex, colIndex++].Value = rowIndex;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+
+                                ws.Cells[rowIndex, colIndex++].Value = item.HoDem + " " + item.TenGV;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+
+                                ws.Cells[rowIndex, colIndex++].Value = item.NgaySinh.Value.Day + "/" + item.NgaySinh.Value.Month + "/" +item.NgaySinh.Value.Year;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+
+                                ws.Cells[rowIndex, colIndex++].Value = item.SoCCCD;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+
+                                if (item.TuyenDung.Equals("Biên chế"))
+                                {
+                                    ws.Cells[rowIndex, colIndex++].Value = item.TuyenDung;
+                                    ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                    ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+                                    colIndex++;
+                                }
+                                else
+                                {
+                                    colIndex++;
+                                    ws.Cells[rowIndex, colIndex++].Value = item.TuyenDung;
+                                    ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                    ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+                                }
+
+                                ws.Cells[rowIndex, colIndex++].Value = item.TrinhDo_VH;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+
+                                ws.Cells[rowIndex, colIndex++].Value = item.TrinhDo_CM;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+
+                                ws.Cells[rowIndex, colIndex++].Value = item.TrinhDo_SP;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+
+
+                                foreach (var gcn in ListAllGCN)
+                                {
+                                    if(item.SoGCN != null)
+                                    {
+                                        if (gcn.SoGCN.Trim().Equals(item.SoGCN.Trim()))
+                                        {
+                                            ws.Cells[rowIndex, colIndex++].Value = gcn.HangXe;
+                                            ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                            ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+
+                                            ws.Cells[rowIndex, colIndex++].Value = gcn.NgayCap.Value.Day + "/" + gcn.NgayCap.Value.Month + "/" + gcn.NgayCap.Value.Year; ;
+                                            ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                            ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+
+                                        }
+                                    }    
+                                }
+
+                                if(item.GV_LT == true && item.GV_TH == false)
+                                {
+                                    ws.Cells[rowIndex, colIndex++].Value = "Dạy Lý Thuyết";
+                                    ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                    ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+                                }
+                                else if(item.GV_TH == true && item.GV_LT == false)
+                                {
+                                    ws.Cells[rowIndex, colIndex++].Value = "Dạy Thực Hành";
+                                    ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                    ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+                                }
+                                else
+                                {
+                                    ws.Cells[rowIndex, colIndex++].Value = "Dạy Lý thuyết và Thực Hành";
+                                    ws.Cells[rowIndex, colIndex].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                                    ws.Cells[rowIndex, colIndex].Style.Border.Bottom.Style = ExcelBorderStyle.Hair;
+                                }
+
+
+                            }
+
+
+
+                            //Lưu file lại
+                            // Xây dựng đường dẫn tới file mới
+                            string fileName = "giaovien.xlsx";
+                            string filePath = Path.Combine(folderPath, fileName);
+
+                            Byte[] bin = u.GetAsByteArray();
+
+                            File.WriteAllBytes(filePath, bin);
+                        }
+                        MessageBox.Show("Xuất File Excel Thành Công!", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Lỗi Xuất File!", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+
+            });
+
 
             //remove teacher get out list
             RemoveTeacher = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -561,7 +794,7 @@ namespace giaothong.ViewModel
                     {
                         var check = validation();
 
-                        if(check)
+                        if (check)
                         {
 
                             var kh = db.GIAOVIENs.Find(MaGV.Trim());
@@ -603,7 +836,7 @@ namespace giaothong.ViewModel
 
                                 p.Close();
                             }
-                        }    
+                        }
                     }
                     catch
                     {
@@ -634,6 +867,25 @@ namespace giaothong.ViewModel
                     teachers(selectedValue, SearchTeacher);
                 }
             });
+        }
+
+        //get list teacher GCN
+        public ObservableCollection<GIAOVIEN_GCN> listAllGCN()
+        {
+            using (db = new giaothongEntities())
+            {
+                ListAllGCN.Clear();
+
+                var gcn = from c in db.GIAOVIEN_GCN
+                          select c;
+
+                gcn.ToList().ForEach(p =>
+                {
+                    ListAllGCN.Add(p);
+                });
+
+                return ListAllGCN;
+            }
         }
 
         //get list teacher GCN

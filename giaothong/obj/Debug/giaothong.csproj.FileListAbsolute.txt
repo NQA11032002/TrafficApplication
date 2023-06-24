@@ -52,3 +52,11 @@ F:\WPF\giaothong\giaothong\obj\Debug\InsertTeacherGCNWindow.g.cs
 F:\WPF\giaothong\giaothong\obj\Debug\InsertTeacherGCNWindow.baml
 F:\WPF\giaothong\giaothong\obj\Debug\EditTeacherGCNWindow.g.cs
 F:\WPF\giaothong\giaothong\obj\Debug\EditTeacherGCNWindow.baml
+F:\WPF\giaothong\giaothong\bin\Debug\System.IO.Packaging.dll
+F:\WPF\giaothong\giaothong\obj\Debug\giaothong.csproj.ResolveComReference.cache
+F:\WPF\giaothong\giaothong\bin\Debug\EPPlus.Interfaces.dll
+F:\WPF\giaothong\giaothong\bin\Debug\EPPlus.System.Drawing.dll
+F:\WPF\giaothong\giaothong\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+F:\WPF\giaothong\giaothong\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
+F:\WPF\giaothong\giaothong\bin\Debug\EPPlus.dll
+F:\WPF\giaothong\giaothong\bin\Debug\EPPlus.xml

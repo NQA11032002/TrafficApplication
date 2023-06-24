@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:giaothong"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.FontWeight="Regular"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource homevm}"
+        x:Name="mainWindow"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         WindowStartupLocation="CenterScreen" 
@@ -49,43 +51,97 @@
                 </WrapPanel>
 
                 <StackPanel Grid.Row="1">
-                    <WrapPanel Margin="10 0 0 0" Cursor="Hand">
-                        <materialDesign:PackIcon Kind="Home" Foreground="#ffffff" Height="30" Width="30" />
-                        <TextBlock Text="Tổng quan" FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" VerticalAlignment="Center" Margin="5 5 0 0"></TextBlock>
-                    </WrapPanel>
+                    <ListView Cursor="Hand">
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Kind="Home" Foreground="#ffffff" Height="30" Width="30" />
+                            <ListViewItem  FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" Content="Tổng quan">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding LogoutCommand}"
+                                                           CommandParameter="{Binding ElementName=mainWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
 
-                    <WrapPanel Margin="10 15 0 0" Cursor="Hand">
-                        <materialDesign:PackIcon Kind="Settings" Foreground="#ffffff" Height="30" Width="30" />
-                        <TextBlock Text="Quản lý đào tạo" FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" VerticalAlignment="Center" Margin="5 5 0 0"></TextBlock>
-                    </WrapPanel>
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Kind="Settings" Foreground="#ffffff" Height="30" Width="30" />
+                            <ListViewItem  FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" Content="Quản lý đào tạo">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding LogoutCommand}"
+                                                           CommandParameter="{Binding ElementName=mainWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
 
-                    <WrapPanel Margin="10 15 0 0" Cursor="Hand">
-                        <materialDesign:PackIcon Kind="SeatReclineNormal" Foreground="#ffffff" Height="30" Width="30" />
-                        <TextBlock Text="Quản lý sát hạch" FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" VerticalAlignment="Center" Margin="5 5 0 0"></TextBlock>
-                    </WrapPanel>
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Kind="SeatReclineNormal" Foreground="#ffffff" Height="30" Width="30" />
+                            <ListViewItem  FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" Content="Quản lý sát hạch">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding LogoutCommand}"
+                                                           CommandParameter="{Binding ElementName=mainWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
 
-                    <WrapPanel Margin="10 15 0 0" Cursor="Hand">
-                        <materialDesign:PackIcon Kind="AccountEdit" Foreground="#ffffff" Height="30" Width="30" />
-                        <TextBlock Text="Quản lý giáo viên" FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" VerticalAlignment="Center" Margin="5 5 0 0"></TextBlock>
-                    </WrapPanel>
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Kind="AccountEdit" Foreground="#ffffff" Height="30" Width="30" />
+                            <ListViewItem  FontSize="17" FontWeight="SemiBold" Width="200" Foreground="#ffffff" Content="Quản lý giáo viên">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding OpenTeacherCommand}"
+                                                           CommandParameter="{Binding ElementName=mainWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
 
-                    <WrapPanel Margin="10 15 0 0" Cursor="Hand">
-                        <materialDesign:PackIcon Kind="Motorbike" Foreground="#ffffff" Height="30" Width="30" />
-                        <TextBlock Text="Quản lý xe tập lái" FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" VerticalAlignment="Center" Margin="5 5 0 0"></TextBlock>
-                    </WrapPanel>
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Kind="Motorbike" Foreground="#ffffff" Height="30" Width="30" />
+                            <ListViewItem  FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" Content="Quản lý xe tập lái">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding LogoutCommand}"
+                                                           CommandParameter="{Binding ElementName=mainWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
 
-                    <WrapPanel Margin="10 15 0 0" Cursor="Hand">
-                        <materialDesign:PackIcon Kind="CreditCard" Foreground="#ffffff" Height="30" Width="30" />
-                        <TextBlock Text="Quản lý giấy phép lái xe" FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" VerticalAlignment="Center" Margin="5 5 0 0"></TextBlock>
-                    </WrapPanel>
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Kind="CreditCard" Foreground="#ffffff" Height="30" Width="30" />
+                            <ListViewItem  FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" Content="Quản lý giấy phép lái xe">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding LogoutCommand}"
+                                                           CommandParameter="{Binding ElementName=mainWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
 
-                    <WrapPanel Margin="10 15 0 0" Cursor="Hand">
-                        <materialDesign:PackIcon Kind="Logout" Foreground="#ffffff" Height="30" Width="30" />
-                        <TextBlock Text="Đăng xuất" FontSize="17" FontWeight="SemiBold" Foreground="#ffffff" VerticalAlignment="Center" Margin="5 5 0 0"></TextBlock>
-                    </WrapPanel>
+                        <WrapPanel Margin="0 5 0 0" >
+                            <materialDesign:PackIcon Kind="Logout" Foreground="#ffffff" Height="30" Width="30"></materialDesign:PackIcon>
+                            <ListViewItem FontSize="17" FontWeight="SemiBold" Foreground="#ffffff"  Width="200" Content="Đăng xuất">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding LogoutCommand}" 
+                                                               CommandParameter="{Binding ElementName=mainWindow}">
+
+                                        </i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+                    </ListView>
                 </StackPanel>
             </Grid>
         </Border>
+
 
         <Border CornerRadius="0 10 10 0" Grid.Column="1" Background="#ffffff">
             <Grid Margin="15">

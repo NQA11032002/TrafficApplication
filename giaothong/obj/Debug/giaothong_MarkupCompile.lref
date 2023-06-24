@@ -1,5 +1,6 @@
 ﻿
 FF:\WPF\giaothong\giaothong\App.xaml;;
+FF:\WPF\giaothong\giaothong\EditTeacherGCNWindow.xaml;;
 FF:\WPF\giaothong\giaothong\EditTeacherWindow.xaml;;
 FF:\WPF\giaothong\giaothong\HomeWindow.xaml;;
 FF:\WPF\giaothong\giaothong\InsertTeacherGCNWindow.xaml;;
@@ -8,5 +9,4 @@ FF:\WPF\giaothong\giaothong\MainWindow.xaml;;
 FF:\WPF\giaothong\giaothong\Resources\MainResource.xaml;;
 FF:\WPF\giaothong\giaothong\TeacherGCNWindow.xaml;;
 FF:\WPF\giaothong\giaothong\TeacherWindow.xaml;;
-FF:\WPF\giaothong\giaothong\EditTeacherGCNWindow.xaml;;
 
